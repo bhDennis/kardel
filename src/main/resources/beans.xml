@@ -6,7 +6,7 @@
             http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
     <bean id="helloWorld" class="me.dennis.exercise.HelloWorld">
-         <property name="message" value="dennis"/>
+         <property name="message" value="Dennis"/>
     </bean>
 
 
