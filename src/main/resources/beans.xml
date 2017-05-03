@@ -7,7 +7,30 @@
 
     <bean id="helloWorld" class="me.dennis.exercise.HelloWorld">
          <property name="message" value="Dennis"/>
+         <property name="holidays">
+             <list>
+                 <ref local="christmas"/>
+                 <ref local="newYear"/>
+             </list>
+         </property>
     </bean>
 
+    <bean id="christmas" class="me.dennis.exercise.dto.Holiday">
+        <property name="month" value="12"/>
+        <property name="day" value="25"/>
+        <property name="greeting" value="Merry Christmas"/>
+    </bean>
+
+    <bean id="newYear" class="me.dennis.exercise.dto.Holiday">
+        <property name="month" value="1"/>
+        <property name="day" value="1"/>
+        <property name="greeting" value="New Year"/>
+    </bean>
+
+    <bean id="sequenceGenerator" class="me.dennis.exercise.SequenceGenerator">
+        <property name="prefix"value="30"></property>
+        <property name="suffix" value="A"></property>
+        <property name="initial" value="100000"></property>
+    </bean>
 
 </beans>
