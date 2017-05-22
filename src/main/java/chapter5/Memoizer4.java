@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
-// �޸���Memoizer3�и��ϲ�������û�������)������
+// 修复了Memoizer3中复合操作（若没有则添加)的问题
 public class Memoizer4<A,V> implements Computable<A,V> {
 
 	private final ConcurrentMap<A,Future<V>> cache = new ConcurrentHashMap<A,Future<V>>();

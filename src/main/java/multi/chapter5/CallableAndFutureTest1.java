@@ -8,8 +8,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * ExecutorService �̳�Executor������Ŀ����Ϊ���ǹ���Thread���󣬴Ӷ��򻯲�����̣�Executor
- * ʹ����������ʾ��ȥ�����̵߳��������ڣ���JDK5֮�������������ѡ��ʽ
+ * ExecutorService 继承Executor，它的目的是为我们管理Thread对象，从而简化并发编程，Executor
+ * 使我们无需显示的去管理线程的生命周期，是JDK5之后启动任务的首选方式
  * @author ahs2
  *
  */

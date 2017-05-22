@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
-// p.163 8-9 ��������־�ͼ�ʱ�ȹ��ܵ��̳߳�
+// p.163 8-9 增加了日志和计时等功能的线程池
 public class TimingThreadPool extends ThreadPoolExecutor{
 
 	public TimingThreadPool(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,

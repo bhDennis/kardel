@@ -5,7 +5,7 @@ import java.io.FileFilter;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-//������������
+//启动桌面搜索
 public class StartIndexMain {
 
 	private static final Integer BOUND = 90;

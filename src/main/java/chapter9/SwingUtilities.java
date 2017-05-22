@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
 
-//p.172 ʹ��Executor��ʵ��SwingUtilities
+//p.172 使用Executor来实现SwingUtilities
 public class SwingUtilities {
 
 	private static final ExecutorService exec = Executors.newSingleThreadExecutor(new SwingThreadFactory());

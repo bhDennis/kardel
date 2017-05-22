@@ -7,15 +7,15 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * http://www.cnblogs.com/linjiqin/archive/2013/05/30/3108188.html
- * ��������LinkedBlockingQueue: �̰߳�ȫ  �Ƚ��ȳ�
- *    put�����ڶ�������ʱ�������ֱ���ж��г�Ա������
- *    take�����ڶ��пյ�ʱ���������ֱ���ж��г�Ա���Ž���
+ * 阻塞队列LinkedBlockingQueue: 线程安全  先进先出
+ *    put方法在队列满的时候会阻塞直到有队列成员被消费
+ *    take方法在队列空的时候会阻塞，直到有队列成员被放进来
  * @author ahs2
  *
  */
 public class BlockingQueueTest {
 
-	//����װƻ��������
+	//定义装苹果的篮子
 	class Basket{
 		
 		BlockingQueue<String> basket = new LinkedBlockingQueue<String>(3);//���ӣ�������3��ƻ��
@@ -42,9 +42,9 @@ public class BlockingQueueTest {
 		public void run() {
 			try {
 				while(true){
-					System.out.println("������׼������ƻ��"+instance);
+					System.out.println("生产者准备生产苹果"+instance);
 					basket.produce();
-					System.out.println("����������ƻ�����"+instance);
+					System.out.println("生产者生产苹果完毕"+instance);
 					Thread.sleep(300);
 				}
 			} catch (InterruptedException e) {
@@ -66,9 +66,9 @@ public class BlockingQueueTest {
 		public void run(){
 			try {
 				while(true){
-					System.out.println("������׼������ƻ��"+instance);
+					System.out.println("消费者准备消费苹果"+instance);
 					System.out.println(basket.consume());
-					System.out.println("����������ƻ�����"+instance);				
+					System.out.println("消费者消费苹果完毕"+instance);
 					Thread.sleep(1000);
 				}
 			} catch (InterruptedException e) {
@@ -78,24 +78,23 @@ public class BlockingQueueTest {
 	}
 	
 	public static void main(String[] args) {
-		
 		BlockingQueueTest test = new BlockingQueueTest();
-		Basket basket = test.new Basket();//����һ��ƻ��������		
+		Basket basket = test.new Basket();//建立一个苹果的篮子
 		ExecutorService exec = Executors.newCachedThreadPool();
-		
-		//����������
-		Producer producer = test.new Producer("������001",basket);
-		Producer producer2 = test.new Producer("������002",basket);
-		
-		//һ��������
-		Consumer consumer = test.new Consumer("������001",basket);
-		
-		//��������
+
+		//两个生产者
+		Producer producer = test.new Producer("生产者001",basket);
+		Producer producer2 = test.new Producer("生产者002",basket);
+
+		//一个消费者
+		Consumer consumer = test.new Consumer("消费者001",basket);
+
+		//开启任务
 		exec.submit(producer);
 		exec.submit(producer2);
 		exec.submit(consumer);
-		
-		//��������5s����������ֹͣ
+
+		//程序运行5s后，所有任务停止
 		try {
 			Thread.sleep(1000*5);
 		} catch (InterruptedException e) {

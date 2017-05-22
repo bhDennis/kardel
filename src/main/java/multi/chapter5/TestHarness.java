@@ -2,7 +2,7 @@ package multi.chapter5;
 
 import java.util.concurrent.CountDownLatch;
 
-// p.94 ����n���̲߳���ִ��ĳ������ʱ��Ҫ��ʱ��
+// p.94 测试n个线程并发执行某个任务时需要的时间
 public class TestHarness {
 
 	public long timeTasks(int nThreads,final Runnable task) throws InterruptedException{

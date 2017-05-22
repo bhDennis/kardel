@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class SequentialPuzzleSolverTest {
 
-	//���е���������
+	//串行的谜题解答器
 	class SequentialPuzzleSolver<P,M>{
 		
 		private final Puzzle<P,M> puzzle;
@@ -32,8 +32,8 @@ public class SequentialPuzzleSolverTest {
 			return null;
 		}
 	}
-	
-	//p.165 �����嵥8-14  ������������ܵ�����ڵ� 
+
+	//p.165 程序清单8-14  用于谜题解决框架的链表节点
 	static class Node<P,M>{
 		final P pos;
 		final M move;
@@ -55,7 +55,7 @@ public class SequentialPuzzleSolverTest {
 	}
 }
 
-// p.165 �����嵥8-13 P:λ����       M:�ƶ���
+// p.165 程序清单8-13 P:位置类       M:移动类
 interface Puzzle<P,M>{
 	
 	P initialPosition();

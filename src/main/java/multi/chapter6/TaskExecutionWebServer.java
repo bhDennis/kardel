@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-//p.111 �����̳߳ص�Web������
+//p.111 基于线程池的Web服务器
 public class TaskExecutionWebServer {
 
 	private static final int NTHREADS = 100;

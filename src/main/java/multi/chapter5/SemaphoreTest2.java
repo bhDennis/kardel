@@ -30,19 +30,19 @@ public class SemaphoreTest2 {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					
-					System.out.println("�߳�"+Thread.currentThread().getName()+"���룬��ǰ����"+(3-sp.availablePermits())+"������");
+
+					System.out.println("线程"+Thread.currentThread().getName()+"进入，当前已有"+(3-sp.availablePermits())+"个并发");
 					
 					try {
 						Thread.sleep((long) Math.random() * 10000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					
-					System.out.println("�߳�"+Thread.currentThread().getName()+"�����뿪");
+
+					System.out.println("线程"+Thread.currentThread().getName()+"即将离开");
 					sp.release();
-					
-					System.out.println("�߳�"+Thread.currentThread().getName()+"���뿪,��ǰ����"+(3-sp.availablePermits())+"������");
+
+					System.out.println("线程"+Thread.currentThread().getName()+"已离开,当前已有"+(3-sp.availablePermits())+"个并发");
 				}
 			};
 			

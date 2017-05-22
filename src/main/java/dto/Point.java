@@ -1,6 +1,6 @@
 package dto;
 
-//���ɱ����
+//不可变对象
 public class Point {
 
 	public final int x,y;

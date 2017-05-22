@@ -2,7 +2,7 @@ package chapter5;
 
 import java.util.concurrent.CountDownLatch;
 
-// p.94 ����n���̲߳���ִ��ĳ������ʱ��Ҫ��ʱ��
+// p.94 测试n个线程并发执行某个任务时需要的时间
 public class TestHarness {
 
 	public long timeTasks(int nThreads,final Runnable task) throws InterruptedException{
@@ -11,7 +11,7 @@ public class TestHarness {
 		final CountDownLatch endGate = new CountDownLatch(nThreads);
 		
 		for(int i=0;i<nThreads;i++){
-			Thread t = new Thread(){
+			Thread t = new Thread(){  // 即将 每个task放到一个线程中去执行
 				@Override
 				public void run() {
 				   try {
@@ -22,7 +22,7 @@ public class TestHarness {
 						  endGate.countDown();
 					   }
 				   } catch (InterruptedException e) {
-					   
+
 				   }
 				}
 			};

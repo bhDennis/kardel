@@ -5,20 +5,20 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * p.127 ����7-3
- * ���ɿ���ȡ�������������������������Ĳ�����
- * ��������ߵ��ٶȳ����������ߴ����ٶȣ����н���������
- * put����Ҳ�������������ʱ������ϣ��ͨ������
- * cancel����������cancelled��ʶ����������
- * ȴ��ԶҲ���ܼ�������ʶ����Ϊ���޷���������put�����лָ�����
- * 
- * ʹ���жϿ�����ȡ������ �����嵥 7-5 (p.129)������Ѱ����������֮ǰ����ж�
+ * p.127 程序7-3
+ * 不可靠的取消操作将把生产者置于阻塞的操作中
+ * 如果生产者的速度超过了消费者处理速度，队列将被填满，
+ * put方法也会阻塞，如果此时消费者希望通过调用
+ * cancel方法来设置cancelled标识，但生产者
+ * 却永远也不能检查这个标识，因为它无法从阻塞的put方法中恢复过来
+ *
+ * 使用中断可以来取消，见 程序清单 7-5 (p.129)，即在寻找素数任务之前检查中断
  * @author ahs2
  *
  */
 public class BrokenPrimeTest {
 
-	//�������߳���������������һ����������
+	//生产者线程生成素数并放入一个阻塞队列
 	class BrokenPrimeProducer extends Thread {
 		
 		private final BlockingQueue<BigInteger> queue;
@@ -33,7 +33,7 @@ public class BrokenPrimeTest {
 			
 			try {
 				BigInteger p = BigInteger.ONE;
-				while(!cancelled){  // !Thread.currentThread().isInterrupted() ���Խ���������������������⣬��Ϊ����������Ѱ����������֮ǰ����жϵ�
+				while(!cancelled){  // !Thread.currentThread().isInterrupted() 可以解决由于生产者阻塞的问题，因为它是在启动寻找素数任务之前检查中断的
 					queue.put(p = p.nextProbablePrime());
 				}
 			} catch (InterruptedException e) {

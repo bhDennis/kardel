@@ -1,6 +1,6 @@
 package dto;
 
-//�̰߳�ȫ��  �ɱ���
+//线程安全的  可变类
 public class SafePoint {
 
 	private int x,y;
@@ -10,7 +10,7 @@ public class SafePoint {
 	}
 	
 	public SafePoint(SafePoint p){
-		this(p.get()); // ���Ϊ this(p.x,p.y) ��������̬����   p.72��
+		this(p.get()); // 如果为 this(p.x,p.y) 将产生竞态条件   p.72底
 	}
 	
 	public SafePoint(int x,int y){

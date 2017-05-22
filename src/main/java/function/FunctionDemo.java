@@ -1,9 +1,10 @@
 package function;
 
+
 import java.util.function.Function;
 
 /**
- * Function�ӿ�
+ * Function接口
  * http://ifeve.com/jjava-util-function-java8/
  * @author ahs2
  *

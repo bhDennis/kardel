@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-// 7-17 ͨ�������衱�������رշ���   �޽�����У������衱������ܿɿ��ع���
+// 7-17 通过“毒丸”对象来关闭服务   无界队列中，“毒丸”对象才能可靠地工作
 public class IndexingServiceTest {
 
 	private static final File POISON = new File("");
@@ -28,8 +28,8 @@ public class IndexingServiceTest {
 	public void awaitTermination() throws InterruptedException{
 		consumer.join();
 	}
-	
-	//�������߳�
+
+	//消费者线程
 	class IndexerThread extends Thread{
 		
 		@Override
@@ -52,7 +52,7 @@ public class IndexingServiceTest {
 			
 		}
 	}
-	//�������߳�
+	//生产者线程
 	class CrawlerThread extends Thread{
 		
 		@Override

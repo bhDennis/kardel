@@ -1,4 +1,4 @@
-package me.dennis.exercise.dto;
+package me.dennis.exercise.test;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

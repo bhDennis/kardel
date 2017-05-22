@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * p.122 ��ָ����ʱ���ڻ�ȡ�����Ϣ
+ * p.122 在指定的时间内获取广告信息
  * @author ahs2
  *
  */
@@ -26,7 +26,7 @@ public class AdRender {
 		Page page = renderPageBody();
 		Ad ad;		
 		try {
-			//ֻ�ȴ�ָ��ʱ�䳤��
+			//只等待指定时间长度
 			long timeLeft = endNanos - System.nanoTime();
 			ad = f.get(timeLeft,TimeUnit.NANOSECONDS);
 		}catch (ExecutionException e) {

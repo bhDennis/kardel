@@ -1,5 +1,7 @@
 package multi.chapter7;
 
+import dto.Task;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -16,11 +18,10 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import me.aihuishou.dto.Task;
 
 public class OtherTest {
 
-	//p.132 �����嵥 7-7 ����ȡ�����������˳�ǰ�ָ��ж�
+	//p.132 程序清单 7-7 不可取消的任务在退出前恢复中断
 	public Task getNextTask(BlockingQueue<Task> queues){
 		
 		boolean interrupted = false;
@@ -39,8 +40,8 @@ public class OtherTest {
 		    }
 		}		
 	}
-	
-	//����7-8 ���ⲿ�߳��а����ж�  Ϊ�˽��PrimeGenerator���׳��쳣���������̲߳��������
+
+	//程序7-8 在外部线程中安排中断  为了解决PrimeGenerator中抛出异常而不被主线程捕获的问题
 	private static final ScheduledExecutorService cancelExec = Executors.newScheduledThreadPool(2);
 	
 	public static void timedRun(Runnable r,long timeout,TimeUnit unit){
@@ -56,13 +57,13 @@ public class OtherTest {
 		}, timeout, unit);
 		r.run();
 	}
-	
-	//����7-9 ��ר�ŵ��߳����ж�����
+
+	//程序7-9 在专门的线程中中断任务
 	public static void timedRunSpecial(final Runnable r,long timeout,TimeUnit unit) throws Throwable {
 		
 		class RethrowableTask implements Runnable{
 
-			private volatile Throwable t;//����ȷ�����쳣��ȫ�Ĵ��������̷߳�����timeRunSpecial�ĵ������߳�
+			private volatile Throwable t;//可以确保该异常安全的从其任务线程发布到timeRunSpecial的调用者线程
 			
 			@Override
 			public void run() {
@@ -84,13 +85,13 @@ public class OtherTest {
 			}
 		}
 
-			
-		//ִ��������߳�
+
+		//执行任务的线程
 		RethrowableTask task = new RethrowableTask();
 		final Thread taskThread = new Thread(task);
 		taskThread.start();
-		
-		//��ʱ����
+
+		//限时运行
 		cancelExec.schedule(new Runnable(){
 
 			@Override
@@ -105,8 +106,8 @@ public class OtherTest {
 	}
 	
 	private static final ExecutorService taskExec = Executors.newCachedThreadPool();
-	
-	//ͨ��Future��ʵ��ȡ��  �����嵥 7-10
+
+	//通过Future来实现取消  程序清单 7-10
 	public static void timedRunFuture(Runnable r,long timeout,TimeUnit unit) throws InterruptedException{
 		
 		Future<?> task = taskExec.submit(r);
@@ -114,16 +115,16 @@ public class OtherTest {
 		try {
 			task.get(timeout, unit);
 		}  catch (ExecutionException e) {
-			// ������������׳����쳣����ô�����׳����쳣
+			// 如果在任务中抛出了异常，那么重新抛出该异常
 		} catch (TimeoutException e) {
-			// ���������񽫱�ȡ��
+			// 接下来任务将被取消
 		}finally {
-			// ��������ѽ�������ôִ��ȡ������Ҳ�������Ӱ��
-			task.cancel(true);//����������������У���ô�����ж�
+			// 如果任务已结束，那么执行取消操作也不会带来影响
+			task.cancel(true);//如果任务正在运行中，那么将被中断
 		}
 	}
 
-	// ͨ����дinterrupt�������Ǳ�׼��ȡ��������װ��Thread��
+	// 通过改写interrupt方法将非标准的取消操作封装在Thread中
 	public class ReaderThread extends Thread{
 		
 		private static final int BUFSZ = 100;
@@ -154,16 +155,16 @@ public class OtherTest {
 					if(count < 0){
 						break;
 					}else if(count > 0){
-						//�����߼�
+						//处理逻辑
 					}
 				}
-			} catch (IOException e) {				
-				//�����߳��˳�
+			} catch (IOException e) {
+				//允许线程退出
 			}
 		}
 	}
-	
-	//ͨ�� newTaskFor���Ǳ�׼��ȡ��������װ��һ��������  ���� 7-12
+
+	//通过 newTaskFor将非标准的取消操作封装在一个任务中  程序 7-12
 	public interface CancellableTask<T> extends Callable<T>{
 		
 		void cancel();

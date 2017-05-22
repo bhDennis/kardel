@@ -41,17 +41,16 @@ public class VolatileFeatureExampleTest {
 	}
 }
 class VolatileFeaturesExample {
+	volatile long vl = 0L;	//使用volatile声明64位的long型变量
 
-	volatile long vl = 0L;	//ʹ��volatile����64λ��long�ͱ���
-	
 	public void set(long l) {
-	    vl = l;   //����volatile������д
+		vl = l;   //单个volatile变量的写
 	}
 	public void getAndIncrement () {
-	    vl++;    //���ϣ������volatile�����Ķ�/д
-	    System.out.println(vl);
+		vl++;    //复合（多个）volatile变量的读/写
+		System.out.println(vl);
 	}
 	public long get() {
-	    return vl;   //����volatile�����Ķ�
+		return vl;   //单个volatile变量的读
 	}
 }

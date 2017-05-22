@@ -5,7 +5,7 @@ import java.io.Writer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-//p.139 ����7-13 ��֧�ֹرյ�������-��������־����
+//p.139 程序7-13 不支持关闭的生产者-消费者日志任务
 public class LogWriterTest {
 
 	private final BlockingQueue<String> queue;
@@ -40,7 +40,7 @@ public class LogWriterTest {
 				   writer.println(queue.take());
 			   }
 			} catch (InterruptedException e) {
-				//������
+			   //不处理
 			}finally {
 				writer.close();
 			}

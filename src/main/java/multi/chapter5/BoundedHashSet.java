@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
-// p.97 ʹ��SemaphoreΪ�������ñ߽�   �н���������
+// p.97 使用Semaphore为容器设置边界   有界阻塞容器
 public class BoundedHashSet<T> {
 
 	private final Set<T> set;

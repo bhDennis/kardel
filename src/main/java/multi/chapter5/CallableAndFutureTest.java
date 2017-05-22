@@ -20,7 +20,7 @@ public class CallableAndFutureTest {
 		};
 		
 		FutureTask<Integer> future = new FutureTask<Integer>(callable);
-		new Thread(future).start();// FutureTask��ΪRunnable���߳�ִ��
+		new Thread(future).start();// FutureTask作为Runnable被线程执行
 		
 		try {
 			Thread.sleep(2000);

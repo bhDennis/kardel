@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//p.160 �����嵥8-7 ����Threa����
+//p.160 程序清单8-7 定制Threa基类
 public class MyAppThread extends Thread {
 
 	public static final String DEFAULT_NAME="MyAppThread";

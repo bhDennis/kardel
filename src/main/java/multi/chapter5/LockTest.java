@@ -8,8 +8,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * http://www.cnblogs.com/liuling/p/2013-8-20-03.html
- * �����ź�����Semaphore�������ʵ�ֻ������Ĺ��ܣ����ҿ�������һ���̻߳������������
- * ��һ���߳��ͷ�������������������ָ��ĳ���
+ * 单个信号量的Semaphore对象可以实现互斥锁的功能，并且可以是由一个线程获得了锁，再由
+ * 另一个线程释放锁，这可以用于死锁恢复的场合
  * @author ahs2
  *
  */
@@ -40,7 +40,7 @@ public class LockTest {
 				
 //			lock.lock();
 			try {
-				sp.acquire();//��ǰ�߳�ʹ��count������ʱ������ס�������������̷߳���
+				sp.acquire();//当前线程使用count便利的时候将其锁住，不允许其他线程访问
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -51,13 +51,13 @@ public class LockTest {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}	
-				System.out.println("count:"+count+"���߳���:"+Thread.currentThread().getName());
+				}
+				System.out.println("count:"+count+"，线程名:"+Thread.currentThread().getName());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally{
-				sp.release();//�ͷ���
+				sp.release();//释放锁
 			}
 		}
 	}

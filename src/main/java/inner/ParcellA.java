@@ -2,13 +2,13 @@ package inner;
 
 public class ParcellA {
 
-	private int pMember;//����һ��˽�г�Ա
+	private int pMember;//声明一个私有成员
 	
-	private static int pstMember;//����һ��˽�о�̬��Ա
+	private static int pstMember;//声明一个私有静态成员
 	
-	private final int pfMember = 9;//����ֵ
+	private final int pfMember = 9;//常量值
 	
-	private final static int pfsMember = 0;//������̬��Ա
+	private final static int pfsMember = 0;//常量静态成员
 	
 	public void testA(){
 		System.out.println("testA");
@@ -25,8 +25,8 @@ public class ParcellA {
              System.out.println(pstMember);
              System.out.println(pfMember);
              System.out.println(pfsMember);
-             testA();//�����ⲿ��ͨ����
-             testB();//�����ⲿ��̬����
+             testA();//访问外部普通方法
+             testB();//访问外部静态方法
              return i;
 		}
 	}
@@ -35,10 +35,10 @@ public class ParcellA {
 	public static class Contentx2{
 		
 		private int a = 0;
-		private static int memberOfStatic;//���Զ��徲̬��Ա
+		private static int memberOfStatic;//可以定义静态成员
 		private static int out(){
-//			 testA();//���ܷ����ⲿ��ͨ����
-//			 System.out.println(pMember);//���ܷ����ⲿ�ķǾ�̬��Ա  ��Ϊ��̬���������ʱ�Ѿ���ʼ���ˣ����Ǿ�̬��Աֻ���ڴ��������ʱ��ų�ʼ���������ڴ�
+//			 testA();//不能访问外部普通方法
+//			 System.out.println(pMember);//不能访问外部的非静态成员  因为静态类在类加载时已经初始化了，而非静态成员只有在创建对象的时候才初始化，分配内存
 			 System.out.println(pfsMember);
 			 System.out.println(pstMember);
 			 testB();
@@ -49,8 +49,8 @@ public class ParcellA {
 			out();
 		}
 	}
-	
-	//Ĭ�Ϸ���Ȩ��Ϊ������Ȩ�ޣ���������һ�����з���
+
+	//默认访问权限为包访问权限，不能再另一个包中访问
 	class Destination{
 		
 		

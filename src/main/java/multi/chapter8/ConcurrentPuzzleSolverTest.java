@@ -11,7 +11,7 @@ public class ConcurrentPuzzleSolverTest {
 
 }
 
-// �����嵥8-18 p.169 �ڽ�������Ҳ������
+// 程序清单8-18 p.169 在解答器中找不到解答
 class PuzzleSolver<P,M> extends ConcurrentPuzzleSolver<P,M>{
 	
 	public PuzzleSolver(Puzzle<P, M> puzzle, ExecutorService exec, ConcurrentMap<P, Boolean> seen) {
@@ -27,7 +27,7 @@ class PuzzleSolver<P,M> extends ConcurrentPuzzleSolver<P,M>{
 	
 	class CountingSolverTask extends SolverTask{
 
-		CountingSolverTask(P pos, M move, me.aihuishou.multi.chapter8.ConcurrentPuzzleSolver.Node<P, M> prev) {
+		CountingSolverTask(P pos, M move,ConcurrentPuzzleSolver.Node<P, M> prev) {
 			super(pos, move, prev);
 			taskCount.incrementAndGet();
 		}
@@ -45,7 +45,7 @@ class PuzzleSolver<P,M> extends ConcurrentPuzzleSolver<P,M>{
 	
 }
 
-//�����嵥8-16 p.167 ��������������
+//程序清单8-16 p.167 并发的谜题解答器
 class ConcurrentPuzzleSolver<P,M>{
 	
 	private final Puzzle<P,M> puzzle;
@@ -64,7 +64,7 @@ class ConcurrentPuzzleSolver<P,M>{
 		try {
 			P p = puzzle.initialPosition();
 			exec.execute(newTask(p, null, null));
-			//����ֱ���ҵ����
+			//阻塞直到找到解答
 			Node<P, M> solnNode = solution.getValue();
 			return (solnNode == null) ? null : solnNode.asMoveList();
 		} finally {
@@ -86,7 +86,7 @@ class ConcurrentPuzzleSolver<P,M>{
 		public void run() {
 		
 			if(solution.isSet() || seen.putIfAbsent(pos,true) != null){
-				return ;//�Ѿ��ҵ��˽������Ѿ����������λ��
+				return ;//已经找到了解答或者已经遍历了这个位置
 			}
 			if(puzzle.isGoal(pos)){
 				solution.setValue(this);
@@ -118,8 +118,8 @@ class ConcurrentPuzzleSolver<P,M>{
 			return solution;
 		}
 	}
-	
-	// �����嵥8-17 p.168 Я������ı���
+
+	// 程序清单8-17 p.168 携带结果的闭锁
 	class ValueLatch<T>{	
 	 
 	  private T t = null;

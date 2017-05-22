@@ -1,25 +1,25 @@
-1.�����ⷽ��  ��Thread.sleep��Object.wait�ȣ��������ֳ���ʱ�жϣ������ڷ����ж�ʱ��ǰ����
-2.Thread���жϷ���
-   void interrupt()�����ж�Ŀ���߳�
-   boolean isInterrupted()���ܷ���Ŀ���̵߳��ж�״̬
-   static boolean interrupted()���������ǰ�̵߳��ж�״̬
+1.阻塞库方法  如Thread.sleep、Object.wait等，都会检查现场何时中断，并且在发现中断时提前返回
+2.Thread的中断方法
+   void interrupt()：能中断目标线程
+   boolean isInterrupted()：能返回目标线程的中断状态
+   static boolean interrupted()：能清除当前线程的中断状态
 
-3.����interrupt������ζ������ֹͣĿ���߳����ڽ��еĹ�������ֻ�Ǵ����������жϵ���Ϣ�����߳���һ�����ʵ�ʱ���ж��Լ�
-4.��Ӧ�жϵķ�ʽ��
-     <1>.����ж�״̬        <2>.�׳�InterruptedException  
-     
-5.һ���ж����������һ�����������ߡ����ж��̳߳��е�ĳ���������̣߳�ͬʱ��ζ��"ȡ����ǰ����"��"�رչ������߳�"
+3.调用interrupt并不意味着立即停止目标线程正在进行的工作，而只是传递了请求中断的消息，由线程在一个合适的时刻中断自己
+4.响应中断的方式：
+     <1>.清除中断状态        <2>.抛出InterruptedException
 
-6.JVM�����رյķ�ʽ��
-             �����һ��������(���ػ�)"�߳̽���ʱ��
-             ����System.exitʱ;
-             ͨ�������ض���ƽ̨�ķ����ر�ʱ(���緢����SIGINT�źŻ����Ctrl-C);
-             
-  JVM�쳣�رյķ�ʽ��
-            ����Runtime.halt;
-            �ڲ���ϵͳ��ɱ��JVM����(���緢��SIGKILL);
-7.�̷߳�Ϊ���֣���ͨ�̺߳��ػ��߳�
-     �����̵߳Ĳ���ǣ������߳��˳�ʱ�����Ĳ�������һ���߳��˳�ʱ��JVM���������������е��̣߳���������ػ��̣߳���ôJVM�������˳�������
-     
-8.�ս�����������Դ���ͷţ������ļ�������׽��־�������������ս������ʵ��κ�״̬�����ܱ�����̷߳��ʣ�������Ҫ������ʲ�������ͬ��������һ��
-����ͨ��ʹ��finally��������ʾ��close�������ܹ���ʹ���ս������õĹ�����Դ��
+5.一个中断请求可以有一个或多个接收者——中断线程池中的某个工作者线程，同时意味着"取消当前任务"和"关闭工作者线程"
+
+6.JVM正常关闭的方式：
+             当最后一个“正常(非守护)"线程结束时；
+             调用System.exit时;
+             通过其他特定于平台的方法关闭时(例如发送了SIGINT信号或键入Ctrl-C);
+
+  JVM异常关闭的方式：
+            调用Runtime.halt;
+            在操作系统中杀死JVM进程(例如发送SIGKILL);
+7.线程分为两种：普通线程和守护线程
+     两种线程的差别是：仅当线程退出时发生的操作。当一个线程退出时，JVM会检查其他正在运行的线程，如果都是守护线程，那么JVM会正常退出操作。
+
+8.终结器：管理资源的释放，比如文件句柄或套接字句柄，但是由于终结器访问的任何状态都可能被多个线程访问，这样就要对其访问操作进行同步，我们一般
+可以通过使用finally代码块和显示的close方法，能够比使用终结器更好的管理资源。

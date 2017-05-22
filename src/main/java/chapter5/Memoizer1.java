@@ -3,7 +3,7 @@ package chapter5;
 import java.util.HashMap;
 import java.util.Map;
 
-//p.100 ʹ��HashMap��ͬ����������ʼ������
+//p.100 使用HashMap和同步机制来初始化缓存
 public class Memoizer1<A, V> implements Computable<A, V> {
 
 	private final Map<A,V> cache = new HashMap<A,V>();

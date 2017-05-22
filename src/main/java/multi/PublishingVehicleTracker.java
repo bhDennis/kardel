@@ -1,15 +1,17 @@
 package multi;
 
+import dto.SafePoint;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import me.aihuishou.dto.SafePoint;
 
-// p.73 �̰߳�ȫ�� ����ȫ��ί�и��ײ��ConcurrentHashMap ֻ��map�е�Ԫ�����̰߳�ȫ���ҿɱ��
+// p.73 线程安全的 将安全性委托给底层的ConcurrentHashMap 只是map中的元素是线程安全的且可变的
+
 public class PublishingVehicleTracker {
 
-	private final Map<String,SafePoint> locations;
+	private final Map<String, SafePoint> locations;
 	private final Map<String,SafePoint> unmodifiableMap;
 	
 	public PublishingVehicleTracker(Map<String,SafePoint> locations){

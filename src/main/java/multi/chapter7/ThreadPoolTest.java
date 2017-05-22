@@ -1,9 +1,9 @@
 package multi.chapter7;
 
-//�����嵥 7-23 p.147 ������������߳���ֹ    ������һ���������������Ϊ�����쳣
+//程序清单 7-23 p.147 处理非正常的线程终止    如下是一种主动方法来解决为检查的异常
 public class ThreadPoolTest {
 
-	//���͵Ĺ������߳̽ṹ
+	//典型的工作者线程结构
 	public void run(){
 		Throwable thrown = null;
 		try {

@@ -10,6 +10,6 @@ public class Holder {
 	
 	public void assertSanity(){
 		if(n!=n)
-			System.out.println("�����");
+			System.out.println("不相等");
 	}
 }

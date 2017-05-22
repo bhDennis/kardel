@@ -19,7 +19,7 @@ public class Memoizer3<A, V> implements Computable<A, V> {
 	public V compute(A args) throws Exception {
 		
 		Future<V> f = cache.get(args);
-		if(f == null){       //��ԭ��  �ȼ���ִ�� 
+		if(f == null){       //非原子  先检查后执行
 			Callable<V> eval = new Callable<V>(){
 				@Override
 				public V call() throws Exception {					
@@ -30,7 +30,7 @@ public class Memoizer3<A, V> implements Computable<A, V> {
 			FutureTask<V> ft = new FutureTask<V>(eval);
 			f = ft;
 			cache.put(args, ft);
-			ft.run();//���������c.compute()
+			ft.run();//在这里调用c.compute()
 		}
 		try {
 			return f.get();

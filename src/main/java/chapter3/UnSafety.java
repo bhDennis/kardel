@@ -1,9 +1,8 @@
 package chapter3;
 
 /**
- * p.55 ����ȫ�ķ���
- * ���ڿɼ������⣬�����߳̿�����Holer���󽫴��ڲ�һ��״̬
- * @author ahs2
+ * p.55 不安全的发布
+ * 由于可见性问题，其他线程看到的Holer对象将处于不一致状态
  *
  */
 public class UnSafety {

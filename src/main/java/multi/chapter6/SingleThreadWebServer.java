@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-// p.108 ���е�Web������  ÿ��ֻ�ܴ���һ������
+// p.108 串行的Web服务器  每次只能处理一个请求
 public class SingleThreadWebServer {
 
 	public static void main(String[] args) throws IOException {

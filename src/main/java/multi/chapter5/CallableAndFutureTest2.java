@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-//http://blog.csdn.net/ghsau/article/details/7451464 ִ�ж��������ֵ������
+//http://blog.csdn.net/ghsau/article/details/7451464 ִ执行多个带返回值的任务
 public class CallableAndFutureTest2 {
 
 	public static void main(String[] args) {

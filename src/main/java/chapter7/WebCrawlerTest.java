@@ -15,7 +15,7 @@ public class WebCrawlerTest {
 
 }
 
-// 7-22 p.145 ʹ��TrackingExecutorSerivce������δ��ɵ������Ա�����ִ��
+// 7-22 p.145 使用TrackingExecutorSerivce来保存未完成的任务以备后续执行
  abstract class WebCrawler{
 	
 	private volatile TrackingExecutor exec;
@@ -32,7 +32,7 @@ public class WebCrawlerTest {
 		urlsToCrawl.clear();
 	}
 	
-	public synchronized void stop(){  //�ر�ʱ����¼��Щ ��δ��ʼ������ + ��ȡ���������URL
+	public synchronized void stop(){  //关闭时，记录那些 从未开始的任务 + 被取消的任务的URL
 		try {
 			saveUncrawled(exec.shutdownNow());
 			if(exec.awaitTermination(TIMEOUT, UNIT)){
@@ -78,7 +78,7 @@ public class WebCrawlerTest {
 	}
 }
 
-// 7-21 ��ExecutorService�и����ڹر�֮��ȡ��������
+// 7-21 在ExecutorService中跟踪在关闭之后被取消的任务
 class TrackingExecutor extends AbstractExecutorService{
 
 	private final ExecutorService exec;
@@ -90,7 +90,7 @@ class TrackingExecutor extends AbstractExecutorService{
 	public List<Runnable> getCancelledTasks(){
 		
 		if(!exec.isTerminated()){
-			throw new IllegalStateException("�쳣");
+			throw new IllegalStateException("异常");
 		}
 		return new ArrayList<Runnable>(tasksCancelledAtShutdown);
 	}
@@ -126,7 +126,7 @@ class TrackingExecutor extends AbstractExecutorService{
 			public void run() {				
 				try {
 					command.run();
-				} catch (Exception e) {       //���������ҳ���Щ�Ѿ���ʼ����û��������ɵ�����
+				} catch (Exception e) {     //可以用来找出那些已经开始但还没有正常完成的任务
 				    if(isShutdown() && Thread.currentThread().isInterrupted()){
 				    	tasksCancelledAtShutdown.add(command);
 				    }

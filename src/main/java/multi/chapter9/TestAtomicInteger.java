@@ -1,4 +1,4 @@
-package multi;
+package multi.chapter9;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

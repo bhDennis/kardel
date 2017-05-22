@@ -9,10 +9,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * p.119 ʹ��Future�ȴ�ͼ������  
- * ��ʾ���У������е�ͼ��������ɺ󣬲Ż���ʾ��ҳ����
- * ��Ⱦ�ı���CPU�ܼ���
- * ��ȾͼƬ��I/O�ܼ���
+ * p.119 使用Future等待图像下载
+ * 本示例中：当多有的图像下载完成后，才会显示到页面上
+ * 渲染文本：CPU密集型
+ * 渲染图片：I/O密集型
  * @author ahs2
  *
  */
@@ -45,35 +45,35 @@ public class FutureRenderer {
 				renderImage(data);
 			}
 		} catch (InterruptedException e) {
-			//���������̵߳��ж�״̬
+			//重新设置线程的中断状态
 			Thread.currentThread().interrupt();
-			//���ڲ���Ҫ��������ȡ������
+			//由于不需要结果，因此取消任务
 			future.cancel(true);
 		} catch (ExecutionException e) {
 			throw e;
 		}
 	}
-	
-	//ͼƬ��Ⱦ
+
+	//图片渲染
 	private void renderImage(ImageData data) {
 			
 	}
 
-	//�ı���Ⱦ
+	//文本渲染
 	private void renderText(CharSequence source) {
 			
 	}
 
-	//��������ͼƬ��ַ��Ϣ
+	//解析出的图片地址信息
 	class ImageInfo{
-		
-		//���ݵ�ַ������������ͼƬ
+
+		//根据地址从网络上下载图片
 		public ImageData downloadImage(){
 			return null;
 		}
 	}
-	
-	//����ͼƬ��Ϣ
+
+	//具体图片信息
 	class ImageData{
 		
 	}

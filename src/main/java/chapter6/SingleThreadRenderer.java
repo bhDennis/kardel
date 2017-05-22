@@ -3,7 +3,7 @@ package chapter6;
 import java.util.ArrayList;
 import java.util.List;
 
-//p.117 ���е���Ⱦҳ��Ԫ��
+//p.117 串行地渲染页面元素
 public class SingleThreadRenderer {
 
 	void renderPage(CharSequence source){

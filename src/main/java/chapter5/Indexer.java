@@ -4,8 +4,7 @@ import java.io.File;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * �����ߴӶ�����ȡ���ļ����Ʋ������ǽ�������
- * @author ahs2
+ * 消费者从队列中取出文件名称并对它们建立索引
  *
  */
 public class Indexer implements Runnable {

@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * �����ߴӶ�����ȡ���ļ����Ʋ������ǽ�������
+ * 消费者从队列中取出文件名称并对它们建立索引
  * @author ahs2
  *
  */

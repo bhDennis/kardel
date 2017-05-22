@@ -14,8 +14,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
- * p.124 Ԥ��ʱ�����������α���
- * ʹ����֧����ʱ��invokeAll����
+ * p.124 预定时间内请求旅游报价
+ * 使用了支持限时的invokeAll方法
  * @author ahs2
  *
  */

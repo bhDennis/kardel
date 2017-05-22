@@ -6,9 +6,8 @@ import java.util.concurrent.BlockingQueue;
 
 /**
  * p.89
- * ��ĳ���ļ���νṹ����������������׼���ļ����������ǵ����Ʒ���
- * ��������
- * @author ahs2
+ * 在某个文件层次结构中搜索符合索引标准的文件，并将它们的名称放入
+ * 工作队列
  *
  */
 public class FileCrawler implements Runnable {
@@ -51,7 +50,6 @@ public class FileCrawler implements Runnable {
 	}
 
 	private boolean alreadyIndexed(File entry) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

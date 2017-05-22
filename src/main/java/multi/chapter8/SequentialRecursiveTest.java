@@ -32,8 +32,7 @@ public class SequentialRecursiveTest {
 			parallelRecursive(exec,n.getChildren(),results);
 		}
 	}
-	
-	// �����嵥 8-12  p.165 �ȴ�ͨ�����з�ʽ����Ľ��
+	// 程序清单 8-12  p.165 等待通过并行方式计算的结果
 	public<T> Collection<T> getParallelResults(List<Node<T>> nodes) throws InterruptedException{
 		
 		ExecutorService exec = Executors.newCachedThreadPool();

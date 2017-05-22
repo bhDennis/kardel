@@ -1,13 +1,12 @@
 package multi.chapter7;
 
-//�����嵥 7-26
+//程序清单 7-26
 public class JVMTest {
 
 	final class LogService{		
 		public void stop(){	}
 	}
-	
-	//ͨ��ע��һ���رչ�����ֹͣ��־����
+	//通过注册一个关闭钩子来停止日志服务
 	public void start(){
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			

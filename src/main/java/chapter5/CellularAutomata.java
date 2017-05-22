@@ -3,7 +3,7 @@ package chapter5;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
-//p.98��ͨ��CyclicBarrierxieЭ��ϸ���Զ�����ϵͳ�еļ���
+//p.98　通过CyclicBarrierxie协调细胞自动衍生系统中的计算
 public class CellularAutomata {
 
 //	private final Board mainBoard;

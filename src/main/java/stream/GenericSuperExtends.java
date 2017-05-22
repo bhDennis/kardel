@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ��<? super T>�� <? extends T>�ķ���
- * <? super T>��     ����T���ڵ��κ�T�ĸ���
- * <? extends T>������T���ڵ��κ�T������
- * 
+ * 对<? super T>和 <? extends T>的分析
+ * <? super T>：     包括T在内的任何T的父类
+ * <? extends T>：包括T在内的任何T的子类
+ *
  * http://www.importnew.com/17006.html
  * @author ahs2
  *
  */
 public class GenericSuperExtends {
 
-	//������ʹ��super
+	//消费者使用super
 	public void superMethod(){
 		
 		List<? super Integer> foo3 = new ArrayList<Integer>();
@@ -23,8 +23,8 @@ public class GenericSuperExtends {
 		
 		List<? super Integer> foo5 = new ArrayList<Object>();
 	}
-	
-	//������ʹ��extends
+
+	//生产者使用extends
 	public void extendMethod(){
 		
 		List<? extends Number> foo3 = new ArrayList<Number>();

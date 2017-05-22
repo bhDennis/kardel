@@ -1,16 +1,17 @@
 package multi;
 
+import dto.Point;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import me.aihuishou.dto.Point;
 
-//p.68 ����ί�еĳ���׷���� �̰߳�ȫ��
+//p.68 基于委托的车辆追踪器 线程安全的
 public class DelegatingVehicleTracker {
 
-	private final ConcurrentMap<String,Point> locations;
+	private final ConcurrentMap<String, Point> locations;
 	private final Map<String,Point> unmodifiableMap;
 	
 	public DelegatingVehicleTracker(Map<String,Point> points){

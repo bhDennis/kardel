@@ -6,7 +6,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
-// p.140 ����7-15 ��LogWriter��ӿɿ���ȡ������
+// p.140 程序7-15 向LogWriter添加可靠的取消操作
 public class LogServiceTest {
 
 	private final BlockingQueue<String> queue;
@@ -36,7 +36,7 @@ public class LogServiceTest {
 			if(isShutdown){
 				throw new IllegalStateException("e");
 			}
-			++ reservations;  //����һ���������������ύ��Ϣ��Ȩ��
+			++ reservations;  //递增一个计数器来保持提交消息的权利
 		}
 		queue.put(msg);
 	}

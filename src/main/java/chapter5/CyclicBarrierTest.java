@@ -8,9 +8,9 @@ public class CyclicBarrierTest {
 
 	public static class ComponentThread implements Runnable{
 
-		CyclicBarrier barrier;//������
-		int id;//�����ʶ
-		int[] array;//��������
+		CyclicBarrier barrier;//计数器
+		int id;//组件标识
+		int[] array;//数据数组
 		
 		public ComponentThread(CyclicBarrier barrier,int[] array,int id){
 			this.barrier = barrier;
@@ -23,13 +23,13 @@ public class CyclicBarrierTest {
 			try {
 				array[id] = new Random().nextInt(100);
 				System.out.println("Component "+id+" generates"+array[id]);
-				
-				//������ȴ�Barrier
+
+				//在这里等待Barrier
 				System.out.println("Component "+id+" sleep");
 				barrier.await();
 				System.out.println("Component "+id+" awaked");
-				
-				//�������������еĵ�ǰֵ�ͺ���ֵ
+
+				//计算数据数组中的当前值和后续值
 				int result = array[id] + array[id+1];
 				System.out.println("Component "+id+" result:"+result);
 				

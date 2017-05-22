@@ -1,15 +1,16 @@
 package multi;
 
+import dto.MutablePoint;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.aihuishou.dto.MutablePoint;
 
-//p.66 ���ڼ�����ģʽ�ĳ�������   �̰߳�ȫ��
+//p.66 基于监视器模式的车辆跟踪   线程安全的
 public class MonitorVehicleTracker {
 
-	private final Map<String,MutablePoint> locations;
+	private final Map<String, MutablePoint> locations;
 	
 	public MonitorVehicleTracker(Map<String,MutablePoint> locations){
 		this.locations = deepCopy(locations);
