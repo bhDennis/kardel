@@ -1,4 +1,4 @@
-package me.dennis.exercise;
+package me.dennis.exercise.test;
 
 
 /**
