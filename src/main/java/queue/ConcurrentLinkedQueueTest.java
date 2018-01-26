@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 public class ConcurrentLinkedQueueTest {
 
 	private static ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<Integer>();
-	private static int count = 2;//�̸߳���
+	private static int count = 2;//
 	
 	private static CountDownLatch latch = new CountDownLatch(count);
 	

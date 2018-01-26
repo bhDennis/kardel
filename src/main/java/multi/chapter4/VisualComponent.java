@@ -1,4 +1,4 @@
-package multi;
+package multi.chapter4;
 
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;

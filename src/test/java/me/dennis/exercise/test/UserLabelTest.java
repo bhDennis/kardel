@@ -8,25 +8,17 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:beans.xml")
 public class UserLabelTest {
-
-    @Autowired
-    private UserLabel userLabel;
-
-    @Test
-    public void customLabel(){
-        System.out.println("user:"+userLabel);
-    }
 
     @Test
     public void handleData(){
@@ -73,40 +65,45 @@ public class UserLabelTest {
     }
 
     @Test
+    public void empty(){
+
+        String NOT_LOCALIZABLE = "\u0000";
+
+        System.out.println(NOT_LOCALIZABLE.equals(null));
+
+        System.out.println(NOT_LOCALIZABLE.equals(""));
+
+        System.out.println(NOT_LOCALIZABLE.length());
+
+        System.out.println(NOT_LOCALIZABLE == null);
+    }
+
+    @Test
     public void other(){
 
-//        String NOT_LOCALIZABLE = "\u0000";
-//
-//        System.out.println(NOT_LOCALIZABLE.equals(null));
-//
-//        System.out.println(NOT_LOCALIZABLE.equals(""));
-//
-//        System.out.println(NOT_LOCALIZABLE.length());
-//
-//        System.out.println(NOT_LOCALIZABLE == null);
-
-        List<String> la= new ArrayList<String>() {
+        Set<String> la= new HashSet<String>() {
             {
                 add("a");
                 add("b");
                 add("c");
+                add("d");
             }
         };
 
-        List<String> lb = new ArrayList<String>() {
+        Set<String> lb = new HashSet<String>() {
             {
-                add("a");
-                add("c");
+                add("e");
             }
         };
 
-//        la.retainAll(lb); //交集
-//        la.removeAll(lb); //差集
-        //la.addAll(lb);//合集
+        boolean result = la.retainAll(lb); //交集
+        System.out.println("交集la:"+la+",result:"+result);
 
-        lb.removeAll(la); //差集
-        System.out.println("la:"+la);
-        System.out.println("lb:"+lb);
+        la.removeAll(lb); //差集
+        System.out.println("差集lb:"+la);
+
+        la.addAll(lb);//并集
+        System.out.println("并集la:"+la);
     }
 
     @Test
@@ -223,5 +220,63 @@ public class UserLabelTest {
         calendar.set(Calendar.MILLISECOND,milliSecond);
 
         return calendar;
+    }
+
+    final AtomicInteger counter = new AtomicInteger(0);
+
+    @Test
+    public void test() throws InterruptedException {
+
+        testConcurrently();
+        Thread.sleep(500);// 需要延迟如300ms会打印出自增后的值，不延迟会输出错误的值，因为test本身是一个线程，而自增是多个线程，test线程可能会早于自增中的某个线程输出，这只是假象看起来自增是错的
+        System.out.println("count:"+counter.get());
+
+    }
+
+    @Test
+    public void testConcurrently(){
+
+        for (int i = 0; i < 264; i++) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    counter.incrementAndGet();
+                    System.out.println("线程name:"+Thread.currentThread().getName()+"----i:"+counter.get());
+
+                }
+            }).start();
+        }
+    }
+
+    @Test
+    public void testOne(){
+
+        String str = "abcx1001a";
+
+        int firstCodePoint = str.codePointAt(2);
+
+        int i = Character.charCount(firstCodePoint);
+
+        int j = str.codePointAt(i);
+
+        System.out.println("firstCodePoint:"+firstCodePoint+",i:"+i+",j:"+j);
+    }
+
+    @Test
+    public void leftAndRight(){
+
+        int number = 30;
+
+        System.out.println("number>>>1:"+(number>>>3));
+
+        System.out.println("number<<1:"+(number<<2));
+
+        System.out.println("number>>1:"+(number>>3));
+    }
+
+    @Test
+    public void testArrayList(){
+
+        ArrayList<Integer> variables = new ArrayList<>(10);
     }
 }

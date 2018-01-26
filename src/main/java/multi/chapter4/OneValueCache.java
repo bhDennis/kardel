@@ -1,4 +1,4 @@
-package multi;
+package multi.chapter4;
 
 import java.math.BigInteger;
 import java.util.Arrays;
