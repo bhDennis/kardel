@@ -1,6 +1,6 @@
 package multi.chapter4;
 
-import dto.SafePoint;
+import me.dto.SafePoint;
 
 import java.util.Collections;
 import java.util.Map;

@@ -22,7 +22,7 @@ public class HelloWorldTest {
 
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 
-        HelloWorld helloWorld = (HelloWorld) context.getBean(HelloWorld.class);
+        HelloWorld helloWorld = context.getBean(HelloWorld.class);
 
         helloWorld.hello();
 

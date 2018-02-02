@@ -1,6 +1,6 @@
 package multi.chapter4;
 
-import dto.Point;
+import me.dto.Point;
 
 import java.util.Collections;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package multi.chapter4;
 
-import dto.MutablePoint;
+import me.dto.MutablePoint;
 
 import java.util.Collections;
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 package multi.chapter7;
 
-import dto.Task;
+import me.dto.Task;
 
 import java.io.IOException;
 import java.io.InputStream;

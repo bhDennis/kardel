@@ -273,10 +273,4 @@ public class UserLabelTest {
 
         System.out.println("number>>1:"+(number>>3));
     }
-
-    @Test
-    public void testArrayList(){
-
-        ArrayList<Integer> variables = new ArrayList<>(10);
-    }
 }
