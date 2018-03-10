@@ -3,27 +3,29 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>me.dennis</groupId>
-    <artifactId>kardel</artifactId>
-    <version>${kardel.version}</version>
+    <groupId>com.aihuishou</groupId>
+    <artifactId>zeus</artifactId>
+    <version>${zeus.version}</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>kardel-base</module>
-        <module>kardel-impl</module>
-        <module>kardel-library</module>
-        <module>kardel-web</module>
+        <module>zeus-base</module>
+        <module>zeus-impl</module>
+        <module>zeus-library</module>
+        <module>zeus-web</module>
     </modules>
 
     <properties>
-        <kardel.version>1.0-SNAPSHOT</kardel.version>
+        <zeus.version>1.0-SNAPSHOT</zeus.version>
         <spring.version>4.3.4.RELEASE</spring.version>
-        <junit.version>4.12</junit.version>
+
+        <spring.boot.version>1.5.9.RELEASE</spring.boot.version>
+        <spring.boot.starter.parent.version>1.5.2.RELEASE</spring.boot.starter.parent.version>
+
+        <spring.cloud.dependencies>Camden.SR6</spring.cloud.dependencies>
+        <spring.cloud.starter.zuul>1.4.0.RELEASE</spring.cloud.starter.zuul>
+        <httpcomponents.core.version>4.4.6</httpcomponents.core.version>
         <lombok.version>1.16.12</lombok.version>
-        <servlet.version>2.5</servlet.version>
-        <jsp.api>2.1</jsp.api>
-        <btrace.version>1.2.3</btrace.version>
-        <javax.ws.rs.api>2.0.1</javax.ws.rs.api>
     </properties>
 
     <build>
