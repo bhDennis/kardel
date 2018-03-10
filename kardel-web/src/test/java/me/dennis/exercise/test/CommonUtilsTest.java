@@ -19,6 +19,7 @@ import java.lang.reflect.Constructor;
 @ContextConfiguration("classpath:beans.xml")
 public class CommonUtilsTest {
 
+
     @Test
     public void accessibleConstructor() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 
