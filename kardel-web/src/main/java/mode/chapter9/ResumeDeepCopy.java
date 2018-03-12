@@ -57,7 +57,7 @@ public class ResumeDeepCopy implements Cloneable{
     @Override
     protected Object clone() throws CloneNotSupportedException {
 
-        ResumeDeepCopy resumeDeepCopy = new ResumeDeepCopy(this.workExperience);
+        ResumeDeepCopy resumeDeepCopy = new ResumeDeepCopy(this.workExperience); // 能实现深拷贝的关键代码
         resumeDeepCopy.name  = this.name;
         resumeDeepCopy.age = this.age;
 

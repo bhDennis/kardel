@@ -4,14 +4,15 @@ import me.aihuishou.spring.UserLabel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.lang.reflect.Type;
 import java.util.*;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -52,6 +53,8 @@ public class UserLabelTest {
         i.addAll(j);
         System.out.println(i);
 
+        Date date = new Date(1518326613000l);
+        System.out.println(date);
     }
 
     private static final ConcurrentHashMap<String,String> concurrentHashMap = new ConcurrentHashMap<>();
@@ -272,5 +275,63 @@ public class UserLabelTest {
         System.out.println("number<<1:"+(number<<2));
 
         System.out.println("number>>1:"+(number>>3));
+    }
+
+    @Test
+    public void testGenericHashSet(){
+
+        Set<A> setA = new HashSet<>();
+        A a1 = new A();
+        A a2 = new A();
+        A a3 = new A();
+        setA.add(a1);
+        setA.add(a2);
+        setA.add(a3);
+
+        HashSet<C> setC = new HashSet<>();
+        setC.addAll(setA);  // 说明setC只能加入其元素的子类，此时类A实现了接口C
+
+//        Set<C> setCC = new HashSet<C>(10,0.9,true);  //HashSet中的该构造器是默认包访问级别
+
+        System.out.println(setA.add(null));
+        System.out.println(setA.contains(null));
+
+        Set<C> setC2 = (Set<C>)setC.clone();
+        System.out.println("setC:"+setC.hashCode()+",setC2:"+setC2.hashCode());
+    }
+
+
+    @Test
+    public void testGenericHashMap(){
+
+        Map<String,String> mapA = new HashMap<>(10);
+
+        mapA.forEach(new BiConsumer<String, String>() {
+            @Override
+            public void accept(String s, String s2) {
+                System.out.println("s==s2"+s == s2);
+            }
+        });
+
+        mapA.replaceAll(new BiFunction<String, String, String>() {
+            @Override
+            public String apply(String s, String s2) {
+                return null;
+            }
+        });
+
+        mapA.computeIfAbsent("hzx", new Function<String, String>() {
+            @Override
+            public String apply(String s) {
+                return new StringBuilder(s).append("a").append("b").toString();
+            }
+        });
+
+        Type[] types = mapA.getClass().getGenericInterfaces();
+
+        Arrays.stream(types).forEach(t->{
+            System.out.println(t);
+
+        });
     }
 }
