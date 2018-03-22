@@ -6,7 +6,6 @@ package mode.chapter17;
 public class Forward extends AbstractPlayer {
 
     public Forward(String name){
-
         super(name);
     }
 
