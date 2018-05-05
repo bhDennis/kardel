@@ -37,4 +37,9 @@ public class CommonUtilsTest {
           System.out.println(a);
           System.out.println(c);
     }
+
+    @Test
+    public void instance(){
+        AA aa = new AA(); //可知实例化AA的时候，其父类构造器也会被执行 ,且Abstract和AA类均有静态代码块时，均优先执行
+    }
 }
