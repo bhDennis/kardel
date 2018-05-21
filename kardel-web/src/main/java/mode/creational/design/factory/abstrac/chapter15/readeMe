@@ -1,0 +1,38 @@
+
+p.171
+
+   抽象工厂模式：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。
+
+抽象工厂模式的案例类演变过程如下：
+
+    1.  首先实现的方式是，抽出IFactory、IUserMapper、IDepartmentMapper三个接口，IFactory接口的实现类是
+
+SqlServerFactory，AccessFactory两个，这种实现方式是可以达到目的的，是一种【工厂方法模式】。
+
+但是假设遇到如下场景：
+
+    此时新增一个对表Project的操作类，那么需要新增IProjectMapper、SqlServerMapper、AccessMapper三个类，除此之外，
+
+还需修改SqlServerFactory，AccessFactory两个类（如创建SqlServerMapper对象、AccessMapper对象方法）
+
+
+    2.  鉴于以上的需求变化，我们采用【简单工厂模式】，对于IFactory、SqlServerFactory，AccessFactory这三个类，取而代之的
+
+采用是DataAccess类。
+
+        db名（如sqlServer，access...)的方式 + switch语句来返回对应的库操作类，如dbName = sqlServer，要操作IUserMapper接口，
+
+我们返回SqlServerUserMapper对象...针对IDepartmentMapper接口，我们会有一个新方法如返回SqlServerDepartmentMapper对象。（p.189)
+
+但是假设遇到如下场景：
+
+    此时我们需要引入Oracle数据库，如果采用【工厂方法模式】只需要添加一个OracleFactory即可，但是采用【简单工厂模式】中这样做就比较麻烦，
+
+需要在DataAccess类中的每个方法中的switch语句中加case了。
+
+
+    3.  鉴于以上需求的变化，我们接下来采用 反射 + 抽象工厂模式，保持DataAccess类不变。
+
+        所有在用简单工厂的地方，都可以考虑采用反射技术去除if或switch语句，解除分支判断带来的耦合。
+
+抽象工厂的好处：便于交换产品序列。
