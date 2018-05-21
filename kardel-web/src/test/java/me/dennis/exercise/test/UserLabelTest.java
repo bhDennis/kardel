@@ -1,14 +1,19 @@
 package me.dennis.exercise.test;
 
 import me.aihuishou.spring.UserLabel;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.Type;
 import java.util.*;
 
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.core.ResolvableType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.context.support.XmlWebApplicationContext;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -96,11 +101,12 @@ public class UserLabelTest {
         Set<String> lb = new HashSet<String>() {
             {
                 add("e");
+                add("c");
             }
         };
 
-        boolean result = la.retainAll(lb); //交集
-        System.out.println("交集la:"+la+",result:"+result);
+//        boolean result = la.retainAll(lb); //交集
+//        System.out.println("交集la:"+la+",result:"+result);
 
         la.removeAll(lb); //差集
         System.out.println("差集lb:"+la);
@@ -333,5 +339,68 @@ public class UserLabelTest {
             System.out.println(t);
 
         });
+    }
+
+    @Test
+    public void testBytes(){
+        String str = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALM47PX/YfmlKSDUmVb/t5Ud2MGr\n" +
+                "0cHeXhB8uWOuJLcqU0LmtI/ZhR6y32P/Kbge32FVQEe6wO6rd8t77PpyOKQ45zOkpfxKH7rX85v6\n" +
+                "Y7bme0lqkY/LbofhchaDuFenvDEmF3Q/k/mGiKtMpW1OoFnYx829rnQ+rZE3mr185e4xAgMBAAEC\n" +
+                "gYA5qoRcNrrwl5rfLGjWXFtWiI746e8JASKlDWydTSgVI3I84XyRmHzDvuwwAacLzisz5zlSmx1+\n" +
+                "7f8SoyJCB0R/z1Vr9F8we1hfEtkqjuvpKbUNZbHrPDaG1AAfjZFsH1Fh/hQ5Cs6E5NSCdzNMr+v/\n" +
+                "oFA9nVnXvLlnzQntMa3hHQJBAPgkCkB6Y32jlU0jIfP2K6//jwZ9m5sRg31JGUA+uMV/UGM2ksr8\n" +
+                "Z1IIImWSq47eeduaklqN7R6y/1+PPqKLfM8CQQC45hXicEaRG+49tYt4MBbUXR8VrD27h3VvKOKu\n" +
+                "Kc1+OIpH9/hHU6BLrDxf29kg27oVYsVjvZvK8n13oYJIAKT/AkByKOqKhYQWPlcm+N3bBktNGk7r\n" +
+                "1ofrTKBo2GOEmhaZzhvmuSnJt1u1csaYYmUJQrNfY/qnLJqFwCYbCaTwVSojAkAkJ6GZ4Jh74XlJ\n" +
+                "iclW3BhquDbO1xpPJCK7dMQ2iCgNiWLIxd0/nUOX6Hr5x5SCj1Sov+KXKUlgeuA711IRYEbjAkEA\n" +
+                "iRYDamSh72gSsKDASF5FzBGX6YyExLJHs6Mv78t3y3EsPSGRDpqOAL/mdpIpM9WWe0V1Kitpy+yC\n" +
+                "9gflKE2e+A==";
+        System.out.println(str.getBytes().length);
+    }
+
+
+    public HashMap<Integer,List<String>> myMap;
+
+    @Test
+    public void testResolvableType() throws NoSuchFieldException, IllegalAccessException, InstantiationException {
+
+        ResolvableType resolvableType = ResolvableType.forField(getClass().getField("myMap"));
+        System.out.println("superType:"+resolvableType.getSuperType());
+        System.out.println("asMap:"+resolvableType.asMap());
+        System.out.println("generic0:"+resolvableType.getGeneric(0).resolve());
+        System.out.println("generic1:"+resolvableType.getGeneric(1).resolve());
+        System.out.println("generic11:"+resolvableType.getGeneric(1));
+        System.out.println("generic12:"+resolvableType.resolveGeneric(1,0));
+
+
+        resolvableType = ResolvableType.forClass(TestApplicationContextInitializer.class);
+        System.out.println("resolvableType:"+resolvableType);
+
+        resolvableType = resolvableType.as(ApplicationContextInitializer.class);  // 获取其基类（即其实现的接口或者抽象类）
+        System.out.println("resolvableType:"+resolvableType);
+        System.out.println("resolvableType:"+resolvableType.getGeneric().resolve());
+        System.out.println("isInstance:"+resolvableType.getGeneric().isInstance(new XmlWebApplicationContext()));
+
+    }
+
+    @Test
+    public void testBit(){
+
+//        Integer documentFlags = 0;
+//        System.out.println(documentFlags | 32);
+//
+//        if(1==1){
+//            System.out.println("testBit1");
+//        }else if(1<2){
+//            System.out.println("testBit2");
+//        }
+
+        for(int i=0;i<10;i++){
+
+            if(i>5){
+              return;
+            }
+            System.out.println(i);
+        }
     }
 }
