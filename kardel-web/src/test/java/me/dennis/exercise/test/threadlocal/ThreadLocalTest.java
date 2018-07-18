@@ -1,4 +1,4 @@
-package me.dennis.exercise.test;
+package me.dennis.exercise.test.threadlocal;
 
 /**
  * Created by Dennis on 2017/10/17.

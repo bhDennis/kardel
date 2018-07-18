@@ -11,6 +11,5 @@ public abstract class AbstractCommand {
     public AbstractCommand(Barbecue barbecue) {
         this.barbecue = barbecue;
     }
-
     protected abstract void executeCommand();
 }

@@ -1,7 +1,6 @@
 package me.dennis.exercise.test;
 
 import me.aihuishou.spring.UserLabel;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -25,22 +24,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:beans.xml")
 public class UserLabelTest {
-
-    @Test
-    public void handleData(){
-
-        List<String> allDatas = Arrays.asList
-                ("SHTB000001", "SHTB000003", "SHTB000004", "SHTB000006", "SHTB000011", "SHTB000017", "SHTB000019", "SHTB000020", "SHTB000021", "SHTB000022", "SHTB000024", "SHTB000025", "SHTB000026", "SHTB000031", "SHTB000033", "SHTB000035", "SHTB000036", "SHTB000049", "SHTB000050", "SHTB000051", "SHTB000052", "SHTB000054", "SHTB000057", "SHTB000058", "SHTB000066", "SHTB000070", "SHTB000075", "SHTB000079", "SHTB000081", "SHTB000082", "SHTB000083", "SHTB000089", "SHTB000093", "SHTB000096", "SHTB000097", "SHTB000098", "SHYC000016", "SHYC000044", "SHSH000001", "SHSH000002", "SHXX000010", "SHXX000014", "SHXX000017", "SHXX000020", "SHLH010012", "SHLH010058", "SHLH060014", "SHLH060019", "SHLH060042", "SHXX000027", "SHXX000031", "SHXX000034", "SHSH000003", "SHSH000004", "SHSH000005", "SHSH000006", "SHSH000007", "SHSH000008", "SHSH000009", "SHSH000010", "SHCJ010002", "SHSH000012", "SHSH000013", "SHSH000014", "SHSH000011", "SHXX000041", "SHXX000049", "SHLH101001", "SHLH101002", "SHLH101003", "SHLH101006", "SHLH101007", "SHLH102002", "SHLH103002", "SHLH103007", "SHLH201002", "SHLH201003", "SHLH202005", "SHLH202008", "SHLH203004", "SHLH301002", "SHLH301004", "SHLH402005", "SHLH403007", "SHCK100002", "SHSH000016", "SHSH000017", "SHSH000018", "SHSH000019", "SHSH000020", "SHSH000022", "SHTB000160", "SHTB000163", "SHTB000195", "SHTB000196", "SHTB000198", "SHTB000199", "SHCK100003", "SHCK100004", "SHTB000241", "SHTB000242", "SHTB000244", "SHTB000245", "SHTB000250", "SHTB000249", "SHTB000248", "SHTB000246", "SHTB000239", "SHTB000238", "SHTB000237", "SHTB000236", "SHTB000230", "SHTB000229", "SHTB000226", "SHTB000223", "SHTB000222", "SHTB000220", "SHTB000219", "SHTB000218", "SHTB000217", "SHTB000215", "SHTB000214", "SHTB000213", "SHTB000211", "SHTB000210", "SHTB000208", "SHTB000207", "SHTB000203", "SHTB000204", "SHCK100006", "SHXX000090","zhanglj14", "zhanglj11", "SHZJ00001", "SHTB00502", "SHTB00503", "SHTB00505", "SHTB00605", "SHTDJC065", "SHTB00606", "zhutaotest_app");
-        List<String> lessDatas = Arrays.asList
-                ("SHCK100002", "SHCK100003", "SHCK100004", "SHLH010012", "SHLH010058", "SHLH060014", "SHLH060019", "SHLH060042", "SHLH101001", "SHLH101002", "SHLH101003", "SHLH101006", "SHLH101007", "SHLH102002", "SHLH103002", "SHLH103007", "SHLH201002", "SHLH202005", "SHLH203004", "SHLH301002", "SHLH301004", "SHLH402005", "SHLH403007", "SHSH000002", "SHSH000003", "SHSH000006", "SHSH000007", "SHSH000008", "SHSH000009", "SHSH000010", "SHSH000011", "SHSH000012", "SHSH000014", "SHSH000016", "SHSH000017", "SHSH000019", "SHSH000020", "SHSH000022", "SHTB000001", "SHTB000003", "SHTB000004", "SHTB000006", "SHTB000011", "SHTB000017", "SHTB000019", "SHTB000020", "SHTB000021", "SHTB000024", "SHTB000025", "SHTB000026", "SHTB000033", "SHTB000035", "SHTB000036", "SHTB000050", "SHTB000051", "SHTB000054", "SHTB000057", "SHTB000058", "SHTB000066", "SHTB000079", "SHTB000081", "SHTB000082", "SHTB000083", "SHTB000089", "SHTB000093", "SHTB000096", "SHTB000097", "SHTB000098", "SHTB000163", "SHTB000195", "SHTB000196", "SHTB000199", "SHTB000203", "SHTB000204", "SHTB000207", "SHTB000208", "SHTB000211", "SHTB000213", "SHTB000214", "SHTB000215", "SHTB000217", "SHTB000218", "SHTB000219", "SHTB000220", "SHTB000222", "SHTB000223", "SHTB000226", "SHTB000229", "SHTB000230", "SHTB000236", "SHTB000237", "SHTB000238", "SHTB000239", "SHTB000241", "SHTB000242", "SHTB000244", "SHTB000245", "SHTB000246", "SHTB000248", "SHTB000249", "SHTB000250", "SHXX000010", "SHXX000014", "SHXX000017", "SHXX000020", "SHXX000027", "SHXX000031", "SHXX000034", "SHXX000041", "SHXX000049", "SHXX000090", "SHYC000016", "SHYC000044","SHTB00502", "SHTB00503", "SHTB00505", "SHTB00606", "SHTDJC065", "SHZJ00001", "zhanglj11", "zhanglj14", "zhutaotest_app");
-        System.out.println("lessDatas:"+lessDatas.size()+",allDatas:"+allDatas.size());
-        for(String s : allDatas){
-
-            if(!lessDatas.contains(s)){
-                System.out.println(s);
-            }
-        }
-    }
 
     @Test
     public void testList(){
@@ -402,5 +385,82 @@ public class UserLabelTest {
             }
             System.out.println(i);
         }
+    }
+
+    @Test
+    public void testStream(){
+
+        List<Integer> a = Arrays.asList(1,2,3,4,5);
+
+        a = a.stream().filter(c-> c!=5).collect(Collectors.toList());
+
+        System.out.println("a"+a);
+
+//        System.out.println("b"+b);
+    }
+
+    @Test
+    public void testLinkedHashMap(){
+
+        LinkedHashMap<String, String> accessOrderedMap = new LinkedHashMap<String, String>(16, 0.75F, true){
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<String, String> eldest) { // 实现自定义删除策略，否则行为就和普遍 Map 没有区别
+                return size() > 3;
+            }
+        };
+        accessOrderedMap.put("Project1", "Valhalla");
+        accessOrderedMap.put("Project2", "Panama");
+        accessOrderedMap.put("Project3", "Loom");
+        accessOrderedMap.forEach( (k,v) -> {
+            System.out.println(k +":" + v);
+        });
+        // 模拟访问
+        accessOrderedMap.get("Project2");
+        accessOrderedMap.get("Project2");
+        accessOrderedMap.get("Project3");
+        System.out.println("Iterate over should be not affected:");
+        accessOrderedMap.forEach( (k,v) -> {
+            System.out.println(k +":" + v);
+        });
+        // 触发删除
+        accessOrderedMap.put("Project4", "Mission Control");
+        System.out.println("Oldest entry should be removed:");
+        accessOrderedMap.forEach( (k,v) -> {// 遍历顺序不变
+            System.out.println(k +":" + v);
+        });
+    }
+
+    @Test
+    public void testObjectEquals(){
+
+        A a = new A();
+        A a1 = new A();
+
+        System.out.println(a.equals(a1));
+    }
+
+    @Test
+    public void testToSet(){
+
+//        List<User> s = new ArrayList<>();
+//
+//        User user = new User("张三",1);
+//        User user1 = new User("张三1",1);
+//        User user2 = new User("张三2",2);
+//        User user3 = new User("张三3",3);
+//        User user4 = new User("张三4",3);
+//        s.add(user);
+//        s.add(user1);
+//        s.add(user2);
+//        s.add(user3);
+//        s.add(user4);
+//
+//        System.out.println(s);
+//
+//        Set<Integer> ages = s.stream().map(a->a.getAge()).collect(Collectors.toSet());
+//        System.out.println(ages);
+
+          System.out.println("1".equals(""));
+          System.out.println(null instanceof String);
     }
 }
