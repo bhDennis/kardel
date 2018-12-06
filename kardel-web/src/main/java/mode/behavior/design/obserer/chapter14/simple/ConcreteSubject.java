@@ -1,4 +1,4 @@
-package mode.behavior.design.obserer.chapter14;
+package mode.behavior.design.obserer.chapter14.simple;
 
 import java.util.List;
 import java.util.ArrayList;

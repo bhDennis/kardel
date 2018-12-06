@@ -19,9 +19,9 @@ public class ObjectStructure {
 
     public void disPlay(Action action){
 
-        persons.stream().forEach(a->{
+        persons.stream().forEach(person ->{
 
-            a.accept(action);
+            person.accept(action);
         });
     }
 }

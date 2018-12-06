@@ -4,7 +4,6 @@ public class ConcreteClassA extends AbstractClass{
 
     @Override
     void primitiveOperation1() {
-
         System.out.println("-类A,primitiveOperation1方法实现-");
     }
 

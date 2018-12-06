@@ -34,9 +34,9 @@ public class BlockingQueueTest {
         public void run() {
             try {
                 while (true) {
-                    System.out.println("生产者准备生产苹果" + instance);
+                    System.out.println("生产者准备生产苹果," + instance);
                     basket.produce();
-                    System.out.println("生产者生产苹果完毕" + instance);
+                    System.out.println("生产者生产苹果完毕," + instance);
                     Thread.sleep(300);
                 }
             } catch (InterruptedException e) {
@@ -59,9 +59,9 @@ public class BlockingQueueTest {
         public void run() {
             try {
                 while (true) {
-                    System.out.println("消费者准备消费苹果" + instance);
+                    System.out.println("消费者准备消费苹果," + instance);
                     System.out.println(basket.consume());
-                    System.out.println("消费者消费苹果完毕" + instance);
+                    System.out.println("消费者消费苹果完毕," + instance);
                     Thread.sleep(1000);
                 }
             } catch (InterruptedException e) {
@@ -71,8 +71,10 @@ public class BlockingQueueTest {
     }
 
     public static void main(String[] args) {
+
         BlockingQueueTest test = new BlockingQueueTest();
         Basket basket = test.new Basket();//建立一个苹果的篮子
+
         ExecutorService exec = Executors.newCachedThreadPool();
 
         //两个生产者

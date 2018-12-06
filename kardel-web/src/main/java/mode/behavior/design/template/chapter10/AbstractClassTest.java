@@ -2,7 +2,6 @@ package mode.behavior.design.template.chapter10;
 
 public class AbstractClassTest {
 
-
     public static void main(String[] args){
 
         AbstractClass abstractClass;
@@ -12,6 +11,5 @@ public class AbstractClassTest {
 
         abstractClass = new ConcreteClassB();
         abstractClass.templateMethod();
-
     }
 }

@@ -9,7 +9,6 @@ public class IHandlerTest {
 
     public static void main(String[] args){
 
-
         List<IHandler> iHandlerList = new ArrayList<>(3);
         iHandlerList.add(new Manager());
         iHandlerList.add(new Majordomo());

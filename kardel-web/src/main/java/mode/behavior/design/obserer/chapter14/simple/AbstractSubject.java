@@ -1,4 +1,4 @@
-package mode.behavior.design.obserer.chapter14;
+package mode.behavior.design.obserer.chapter14.simple;
 
 // 抽象通知者
 public abstract class AbstractSubject {
