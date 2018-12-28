@@ -1,10 +1,11 @@
 package me.dennis.exercise.test;
 
 import me.aihuishou.spring.UserLabel;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.lang.ref.*;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -402,5 +403,147 @@ public class UserLabelTest {
             }
             System.out.println(i);
         }
+    }
+
+    @Test
+    public void testChar(){
+
+        char s = 'a';
+        System.out.println(s);
+        System.out.println((int)s);
+        System.out.println(Integer.parseInt("10"));
+    }
+
+    @Test
+    public void testMap(){
+
+        Hashtable hashtable = new Hashtable();
+        hashtable.put("a","a");
+
+        HashMap hashMap = new HashMap();
+        hashMap.put(null,"a");
+        hashMap.put("a",null);
+        hashMap.put("b",null);
+        hashMap.put(null,null);
+
+        System.out.println(hashMap);
+
+        TreeMap treeMap = new TreeMap();
+        treeMap.put("a",null);
+    }
+
+    class Util {
+        public final Integer info = 123;
+    }
+
+    @Test
+    public void testFinal() throws NoSuchFieldException, IllegalAccessException {
+        Util util = new Util();
+        Field field = util.getClass().getDeclaredField("info");
+        //如果将Util中的info定义为int，则无法通过反射修改值，这是因为定义为基本数据类型，会被当作constant
+        field.setAccessible(true);
+        field.set(util,789);
+        System.out.println(field.get(util));
+        System.out.println(util.info);
+    }
+
+    /**
+     * 这时候sf是对obj的一个软引用，通过sf.get()方法可以取到这个对象，
+     * 当然，当这个对象被标记为需要回收的对象时，则返回null；
+     * 软引用主要用户实现类似缓存的功能，在内存足够的情况下直接通过软引用取值，
+     * 无需从繁忙的真实来源查询数据，提升速度；当内存不足时，自动删除这部分缓存数据，从真正的来源查询这些数据。
+     */
+    @Test
+    public void testSoftReference(){
+
+        Object obj = new Object();
+        System.out.println(obj);
+        SoftReference<Object> sf = new SoftReference<Object>(obj);
+        obj = null;
+        System.out.println("sf:"+sf.get()+",obj:"+obj);//有时候会返回null
+    }
+
+    /**
+     * 弱引用是在第二次垃圾回收时回收，短时间内通过弱引用取对应的数据，
+     * 可以取到，当执行过第二次垃圾回收时，将返回null。
+     * 弱引用主要用于监控对象是否已经被垃圾回收器标记为即将回收的垃圾，
+     * 可以通过弱引用的isEnQueued方法返回对象是否被垃圾回收器标记。
+     */
+    @Test
+    public void testWeakReference(){
+
+        Object obj = new Object();
+        System.out.println(obj);
+        WeakReference<Object> wf = new WeakReference<Object>(obj);
+        obj = null;
+        System.out.println("sf:"+wf.get()+",obj:"+obj);//有时候会返回null
+    }
+
+    /**
+     * 虚引用是每次垃圾回收的时候都会被回收，
+     * 通过虚引用的get方法永远获取到的数据为null，因此也被成为幽灵引用。
+     * 虚引用主要用于检测对象是否已经从内存中删除。
+     */
+    @Test
+    public void testPhantomReference(){
+
+        Object obj = new Object();
+        PhantomReference<Object> pf = new PhantomReference<Object>(obj,new ReferenceQueue());
+        obj=null;
+        System.out.println("sf:"+pf.get()+",obj:"+obj);//总是返回null
+    }
+
+    public static boolean isRun = true;
+
+    @Test
+    public void testPhantomReference2() throws InterruptedException {
+
+        String abc = new String("abc");
+        System.out.println(abc.getClass() + "@" + abc.hashCode());
+        final ReferenceQueue referenceQueue = new ReferenceQueue<String>();
+        new Thread() {
+            public void run() {
+                while (isRun) {
+                    Object o = referenceQueue.poll();
+                    if (o != null) {
+                        try {
+                            Field referent = Reference.class.getDeclaredField("referent");
+                            referent.setAccessible(true);
+                            Object result = referent.get(o);
+                            System.out.println("gc will collect:" + result.getClass() + "@" + result.hashCode());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }.start();
+        PhantomReference<String> abcWeakRef = new PhantomReference<String>(abc, referenceQueue);
+        abc = null;
+        Thread.currentThread().sleep(3000);
+        System.gc();
+        Thread.currentThread().sleep(3000);
+        isRun = false;
+    }
+
+    @Test
+    public void testWJBK() throws InterruptedException {
+
+            WeakReference r = new WeakReference(new String("I’m here"));
+
+            WeakReference sr = new WeakReference("I’m here");//sr 直接引用的常量池中的字面量 "I’m here"，而常量池对这个字面量本身也有引用，所以无法回收
+
+            System.gc();
+            Thread.sleep(1000);
+
+            // only r.get() becomes null
+            System.out.println("after gc:r =" + r.get() + ",static=" + sr.get());
+    }
+
+    @Test
+    public void testGetInformationType(){
+
+        EnumProductInformationType result = EnumProductInformationType.getByFlow(1);
+        System.out.print(result);
     }
 }

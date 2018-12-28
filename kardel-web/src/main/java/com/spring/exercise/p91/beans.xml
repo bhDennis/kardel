@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context = "http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <bean id="cashier1" class="com.spring.exercise.p91.Cashier"
+          init-method="openFile" destroy-method="closeFile">
+
+        <!--<property name="name" value="cashier1"/> 使用了感知容器-->
+        <property name="path" value="${cashier.path}"/>
+
+    </bean>
+    <bean class="com.spring.exercise.p91.PathCheckingBeanPostProcessor"/>
+
+    <!-- 注册注解监听器，如CommonAnnotationBeanPostProcessor-->
+    <context:annotation-config/>
+
+    <!-- 外部化bean配置读取-->
+    <context:property-placeholder location="config.properties"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>config.properties</value>
+        </property>
+    </bean>
+
+
+
+</beans>
