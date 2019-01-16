@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context = "http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <!-- JavaBeans API会自动为类搜索属性编辑器，要使它能被正确的搜索到，
+        它必须和目标类位于同一个包下，并且，它的名称必须是目标类的名称加上
+        Editor作为后缀，如果能遵守这种约定，ProductEditor就没有必要在IOC
+        中重复注册了
+    -->
+
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry key="com.spring.exercise.p91.Product">
+                    <bean class="com.spring.exercise.p109.ProductEditor"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="productRanking" class="com.spring.exercise.p91.Disc">
+        <property name="bestSeller">
+            <value>com.spring.exercise.p91.Disc,CD-RW,1.5</value>
+        </property>
+    </bean>
+
+</beans>

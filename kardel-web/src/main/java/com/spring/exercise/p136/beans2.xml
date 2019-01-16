@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context = "http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+    <bean id="loggingAroundAdvice" class="com.spring.exercise.p128.LoggingAroundAdvice"/>
+
+    <!-- Spring提供了一些方便的增强器类，对于NameMatchMethodPointcut，
+         相应的增强器类是NameMatchMethodPointcutAdvisor
+    -->
+    <bean id="methodNameAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <property name="mappedNames">
+            <list>
+                <value>add</value>
+                <value>sub</value>
+            </list>
+        </property>
+        <property name="advice" ref ="loggingAroundAdvice"/>
+    </bean>
+
+    <bean id="arithmeticCalculatorProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="arithmeticCalculator"/>
+        <property name="interceptorNames">
+            <list>
+                <value>methodNameAdvisor</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

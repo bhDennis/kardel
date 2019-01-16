@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context = "http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+    <bean id="loggingAroundAdvice" class="com.spring.exercise.p128.LoggingAroundAdvice"/>
+
+    <!-- AspectJ表达式切入点，下面的表达式将匹配方法名称里有关键字To的所有方法 -->
+    <bean id="aspectjAdvisor" class="org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression">
+            <value>execution(* *.*To*(..))</value>
+        </property>
+        <property name="advice" ref ="loggingAroundAdvice"/>
+    </bean>
+
+    <bean id="arithmeticCalculatorProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="arithmeticCalculator"/>
+        <property name="interceptorNames">
+            <list>
+                <value>aspectjAdvisor</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

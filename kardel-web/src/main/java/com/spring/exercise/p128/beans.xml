@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context = "http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+    <!-- Spring AOP只为在它的IOC容器里声明的Bean处理横切关注点，所以此处注册arithmeticCalculator 和 unitCalculator -->
+    <bean id="arithmeticCalculator" class="com.spring.exercise.p115.ArithmeticCalculatorImpl"/>
+
+    <bean id="unitCalculator" class="com.spring.exercise.p115.UnitCalculatorImpl"/>
+
+
+    <!-- 声明该前置通知的实例 -->
+    <bean id="loggingBeforeAdvice" class="com.spring.exercise.p128.LoggingBeforeAdvice"/>
+    <bean id="loggingAfterAdvice" class="com.spring.exercise.p128.LoggingAfterAdvice"/>
+    <bean id="loggingThrowsAdvice" class="com.spring.exercise.p128.LoggingThrowsAdvice"/>
+    <bean id="loggingAroundAdvice" class="com.spring.exercise.p128.LoggingAroundAdvice"/>
+
+    <!-- 为ArithmeticCalculator 这个Bean创建一个代理
+         默认情况下，ProxyFactoryBean 可以自动侦测并代理目标Bean实现的所有接口。
+         proxyInterfaces：只有调用声明在这些接口里的方法时才会经过代理，不配置时默认自动代理所有接口
+         target：实际处理方法调用的对象
+         interceptorNames：
+                为这个代理指定一系列的通知的名称，根据顺序可以确定其优先级
+                如果使用环绕通知，interceptorNames参数中只用指定loggingAroundAdvice即可
+    -->
+    <bean id="arithmeticCalculatorProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <list>
+                <value>com.spring.exercise.p115.ArithmeticCalculator</value>
+            </list>
+        </property>
+        <property name="target" ref="arithmeticCalculator"/>
+        <property name="interceptorNames">
+            <list>
+                <value>loggingBeforeAdvice</value>
+                <value>loggingAfterAdvice</value>
+                <value>loggingThrowsAdvice</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

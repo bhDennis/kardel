@@ -9,6 +9,8 @@ import mode.creational.design.factory.abstrac.chapter15.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.lang.ref.*;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -330,23 +332,6 @@ public class UserLabelTest {
         });
     }
 
-    @Test
-    public void testBytes(){
-        String str = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALM47PX/YfmlKSDUmVb/t5Ud2MGr\n" +
-                "0cHeXhB8uWOuJLcqU0LmtI/ZhR6y32P/Kbge32FVQEe6wO6rd8t77PpyOKQ45zOkpfxKH7rX85v6\n" +
-                "Y7bme0lqkY/LbofhchaDuFenvDEmF3Q/k/mGiKtMpW1OoFnYx829rnQ+rZE3mr185e4xAgMBAAEC\n" +
-                "gYA5qoRcNrrwl5rfLGjWXFtWiI746e8JASKlDWydTSgVI3I84XyRmHzDvuwwAacLzisz5zlSmx1+\n" +
-                "7f8SoyJCB0R/z1Vr9F8we1hfEtkqjuvpKbUNZbHrPDaG1AAfjZFsH1Fh/hQ5Cs6E5NSCdzNMr+v/\n" +
-                "oFA9nVnXvLlnzQntMa3hHQJBAPgkCkB6Y32jlU0jIfP2K6//jwZ9m5sRg31JGUA+uMV/UGM2ksr8\n" +
-                "Z1IIImWSq47eeduaklqN7R6y/1+PPqKLfM8CQQC45hXicEaRG+49tYt4MBbUXR8VrD27h3VvKOKu\n" +
-                "Kc1+OIpH9/hHU6BLrDxf29kg27oVYsVjvZvK8n13oYJIAKT/AkByKOqKhYQWPlcm+N3bBktNGk7r\n" +
-                "1ofrTKBo2GOEmhaZzhvmuSnJt1u1csaYYmUJQrNfY/qnLJqFwCYbCaTwVSojAkAkJ6GZ4Jh74XlJ\n" +
-                "iclW3BhquDbO1xpPJCK7dMQ2iCgNiWLIxd0/nUOX6Hr5x5SCj1Sov+KXKUlgeuA711IRYEbjAkEA\n" +
-                "iRYDamSh72gSsKDASF5FzBGX6YyExLJHs6Mv78t3y3EsPSGRDpqOAL/mdpIpM9WWe0V1Kitpy+yC\n" +
-                "9gflKE2e+A==";
-        System.out.println(str.getBytes().length);
-    }
-
 
     public HashMap<Integer,List<String>> myMap;
 
@@ -394,15 +379,148 @@ public class UserLabelTest {
     }
 
     @Test
-    public void testStream(){
+    public void testChar(){
 
-        List<Integer> a = Arrays.asList(1,2,3,4,5);
+        char s = 'a';
+        System.out.println(s);
+        System.out.println((int)s);
+        System.out.println(Integer.parseInt("10"));
+    }
 
-        a = a.stream().filter(c-> c!=5).collect(Collectors.toList());
+    @Test
+    public void testMap(){
 
-        System.out.println("a"+a);
+        Hashtable hashtable = new Hashtable();
+        hashtable.put("a","a");
 
-//        System.out.println("b"+b);
+        HashMap hashMap = new HashMap();
+        hashMap.put(null,"a");
+        hashMap.put("a",null);
+        hashMap.put("b",null);
+        hashMap.put(null,null);
+
+        System.out.println(hashMap);
+
+        TreeMap treeMap = new TreeMap();
+        treeMap.put("a",null);
+    }
+
+    class Util {
+        public final Integer info = 123;
+    }
+
+    @Test
+    public void testFinal() throws NoSuchFieldException, IllegalAccessException {
+        Util util = new Util();
+        Field field = util.getClass().getDeclaredField("info");
+        //如果将Util中的info定义为int，则无法通过反射修改值，这是因为定义为基本数据类型，会被当作constant
+        field.setAccessible(true);
+        field.set(util,789);
+        System.out.println(field.get(util));
+        System.out.println(util.info);
+    }
+
+    /**
+     * 这时候sf是对obj的一个软引用，通过sf.get()方法可以取到这个对象，
+     * 当然，当这个对象被标记为需要回收的对象时，则返回null；
+     * 软引用主要用户实现类似缓存的功能，在内存足够的情况下直接通过软引用取值，
+     * 无需从繁忙的真实来源查询数据，提升速度；当内存不足时，自动删除这部分缓存数据，从真正的来源查询这些数据。
+     */
+    @Test
+    public void testSoftReference(){
+
+        Object obj = new Object();
+        System.out.println(obj);
+        SoftReference<Object> sf = new SoftReference<Object>(obj);
+        obj = null;
+        System.out.println("sf:"+sf.get()+",obj:"+obj);//有时候会返回null
+    }
+
+    /**
+     * 弱引用是在第二次垃圾回收时回收，短时间内通过弱引用取对应的数据，
+     * 可以取到，当执行过第二次垃圾回收时，将返回null。
+     * 弱引用主要用于监控对象是否已经被垃圾回收器标记为即将回收的垃圾，
+     * 可以通过弱引用的isEnQueued方法返回对象是否被垃圾回收器标记。
+     */
+    @Test
+    public void testWeakReference(){
+
+        Object obj = new Object();
+        System.out.println(obj);
+        WeakReference<Object> wf = new WeakReference<Object>(obj);
+        obj = null;
+        System.out.println("sf:"+wf.get()+",obj:"+obj);//有时候会返回null
+    }
+
+    /**
+     * 虚引用是每次垃圾回收的时候都会被回收，
+     * 通过虚引用的get方法永远获取到的数据为null，因此也被成为幽灵引用。
+     * 虚引用主要用于检测对象是否已经从内存中删除。
+     */
+    @Test
+    public void testPhantomReference(){
+
+        Object obj = new Object();
+        PhantomReference<Object> pf = new PhantomReference<Object>(obj,new ReferenceQueue());
+        obj=null;
+        System.out.println("sf:"+pf.get()+",obj:"+obj);//总是返回null
+    }
+
+    public static boolean isRun = true;
+
+    @Test
+    public void testPhantomReference2() throws InterruptedException {
+
+        String abc = new String("abc");
+        System.out.println(abc.getClass() + "@" + abc.hashCode());
+        final ReferenceQueue referenceQueue = new ReferenceQueue<String>();
+        new Thread() {
+            public void run() {
+                while (isRun) {
+                    Object o = referenceQueue.poll();
+                    if (o != null) {
+                        try {
+                            Field referent = Reference.class.getDeclaredField("referent");
+                            referent.setAccessible(true);
+                            Object result = referent.get(o);
+                            System.out.println("gc will collect:" + result.getClass() + "@" + result.hashCode());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }.start();
+        PhantomReference<String> abcWeakRef = new PhantomReference<String>(abc, referenceQueue);
+        abc = null;
+        Thread.currentThread().sleep(3000);
+        System.gc();
+        Thread.currentThread().sleep(3000);
+        isRun = false;
+    }
+
+    @Test
+    public void testWJBK() throws InterruptedException {
+
+        WeakReference r = new WeakReference(new String("I’m here"));
+
+        WeakReference sr = new WeakReference("I’m here");//sr 直接引用的常量池中的字面量 "I’m here"，而常量池对这个字面量本身也有引用，所以无法回收
+
+        System.gc();
+        Thread.sleep(1000);
+
+        // only r.get() becomes null
+        System.out.println("after gc:r =" + r.get() + ",static=" + sr.get());
+    }
+
+    /**
+     * 枚举类转成json时调用的是Enum.name()方法，而不是其code、value值
+     */
+    @Test
+    public void testGetInformationType() {
+
+        EnumProductInformationType result = EnumProductInformationType.getByFlow(1);
+//        System.out.print(JSON.toJSON(result));
     }
 
     @Test
@@ -436,14 +554,6 @@ public class UserLabelTest {
         });
     }
 
-    @Test
-    public void testObjectEquals(){
-
-        A a = new A();
-        A a1 = new A();
-
-        System.out.println(a.equals(a1));
-    }
 
     @Test
     public void testToSet(){
@@ -514,23 +624,6 @@ public class UserLabelTest {
         System.out.println("isXOR14="+(256|512|4096));
     }
 
-    @Test
-    public void testListI(){
-
-        List<String> minProductNos = Arrays.asList("20180910194631495473", "20180921165024084514", "20180921185321361085", "20180922150148289470", "20180922163750118700", "20180922182103436245", "20180923081638330423", "20180923095523029621", "20180923110335131395", "20180923142721060473", "20180923151611320807", "20180923155547285569", "20180923174336710992", "20180923174336738505", "20180923200821227105", "20180923204725165936", "20180923230555458996", "20180924002057359409", "20180924094336177249", "20180924101209510970", "20180924101209535199", "20180924101209645029", "20180924101209814770", "20180924101209860845", "20180924101850530590", "20180924101850561314", "20180924101850643411", "20180924101850795253", "20180924102958556697", "20180924102958607663", "20180924102958608241", "20180924102958684353", "20180924102958833793", "20180924102958856509", "20180924102958870764", "20180924103519566268", "20180924103519578470", "20180924103519588581", "20180924103519603548", "20180924103519630222", "20180924103519667978", "20180924103519718098", "20180924103519761883", "20180924103519767892", "20180924103519829997", "20180924103519875804", "20180924105231454516", "20180924110233199450", "20180924130521531623", "20180924130521545913", "20180924130521773174", "20180924130521774782", "20180924130521774821", "20180924131001505412", "20180924131001523029", "20180924131001535885", "20180924131001553462", "20180924131001634856", "20180924131001649713", "20180924131001680271", "20180924131001722148", "20180924131001722754", "20180924131001738796", "20180924131001739975", "20180924131001756221", "20180924131001770242", "20180924131001780066", "20180924131001814606", "20180924131001832436", "20180924131001856192", "20180924131001885586", "20180924131001899936", "20180924131517548442", "20180924131517587615", "20180924131517589389", "20180924131517602268", "20180924131517628077", "20180924131517665759", "20180924131517681894", "20180924131517685076", "20180924131517709823", "20180924131517710264", "20180924131517770308", "20180924131517839493", "20180924131517874096", "20180924131517876082", "20180924131517885879", "20180924131517889504", "20180924131517893840", "20180924132010758332", "20180924132010890874", "20180924135440228459", "20180924140734323795", "20180924142743501715", "20180924142743638814", "20180924142743668387", "20180924142743691653", "20180924142743742556", "20180924142743895806", "20180924160854247476", "20180924172535385163", "20180924174520139460", "20180924180524366648", "20180924182535246733", "20180924192718180428", "20180924195858173326", "20180924201230361356", "20180924234525410253", "20180925001920292109", "20180925085422074709", "20180925092433473222", "20180925101604017594", "20180925110002090054", "20180925121543231274", "20180925155946211053", "20180925190524003986", "20180926003649233770", "20180926103948076808", "20180927175042626218", "20180927175042769329", "20180927175619683397", "20180927175619883703", "20180927175810556083", "20180927180121661031", "20180927180626516721", "20180927180626573371", "20180927181111545578", "20180927181111556686", "20180927181111736579", "20180927181111737641", "20180927181111741108", "20180927181111768408", "20180927181111776071", "20180927181111796538", "20180927181111802869", "20180927181111808128", "20180927181111814080", "20180927181111862188", "20180927181111868734", "20180927181111899810", "20180927181547525694", "20180927181547559618", "20180927181547643478", "20180927181547728268", "20180927181547728394", "20180927181547761705", "20180928105546508496", "20180928105546594702", "20180928105546599630", "20180928105546671594", "20180928105546809092", "20180928105932520845", "20180928105932560190",
-                "20180928105932679563", "20180928105932712275", "20180928105932742401", "20180928105932866173");
-
-        List<String> allProductNos = Arrays.asList("20180910194631495473", "20180921165024084514", "20180921185321361085",
-                "20180922150148289470", "20180922163750118700", "20180922182103436245", "20180923081638330423", "20180923095523029621", "20180923110335131395", "20180923142721060473", "20180923151611320807", "20180923155547285569", "20180923174336710992", "20180923174336738505", "20180923200821227105", "20180923204725165936", "20180923230555458996", "20180924002057359409", "20180924094336177249", "20180924101209510970", "20180924101209535199", "20180924101209645029", "20180924101209814770", "20180924101209860845", "20180924101850530590", "20180924101850561314", "20180924101850643411", "20180924101850795253", "20180924102958556697", "20180924102958607663", "20180924102958608241", "20180924102958684353", "20180924102958833793", "20180924102958856509", "20180924102958870764", "20180924103519566268", "20180924103519578470", "20180924103519588581", "20180924103519603548", "20180924103519630222", "20180924103519667978", "20180924103519718098", "20180924103519761883", "20180924103519767892", "20180924103519829997", "20180924103519875804", "20180924105231454516", "20180924110233199450", "20180924130521531623", "20180924130521545913", "20180924130521773174", "20180924130521774782", "20180924130521774821", "20180924131001505412", "20180924131001523029", "20180924131001535885", "20180924131001553462", "20180924131001634856", "20180924131001649713", "20180924131001680271", "20180924131001722148", "20180924131001722754", "20180924131001738796", "20180924131001739975", "20180924131001756221", "20180924131001770242", "20180924131001780066", "20180924131001814606", "20180924131001832436", "20180924131001856192", "20180924131001885586", "20180924131001899936", "20180924131517548442", "20180924131517587615", "20180924131517589389", "20180924131517602268", "20180924131517628077", "20180924131517665759", "20180924131517681894", "20180924131517685076", "20180924131517709823", "20180924131517710264", "20180924131517770308", "20180924131517839493", "20180924131517874096", "20180924131517876082", "20180924131517885879", "20180924131517889504", "20180924131517893840", "20180924132010758332", "20180924132010890874", "20180924135440228459", "20180924140734323795", "20180924142743501715", "20180924142743638814", "20180924142743668387", "20180924142743691653", "20180924142743742556", "20180924142743895806", "20180924160854247476", "20180924172535385163", "20180924174520139460", "20180924180524366648", "20180924182535246733", "20180924192718180428", "20180924195858173326", "20180924201230361356", "20180924234525410253", "20180925001920292109", "20180925085422074709", "20180925092433473222", "20180925101604017594", "20180925110002090054", "20180925121543231274", "20180925155946211053", "20180925190524003986", "20180926003649233770", "20180926103948076808", "20180927175042626218", "20180927175042769329", "20180927175619683397", "20180927175619883703", "20180927175810556083", "20180927180121661031", "20180927180626516721", "20180927180626573371", "20180927181111503260", "20180927181111545578", "20180927181111556686", "20180927181111736579", "20180927181111737641", "20180927181111741108", "20180927181111768408", "20180927181111776071", "20180927181111796538", "20180927181111802869", "20180927181111808128", "20180927181111814080", "20180927181111862188", "20180927181111868734", "20180927181111899810", "20180927181547525694", "20180927181547559618", "20180927181547643478", "20180927181547728268", "20180927181547728394", "20180927181547761705", "20180928105546508496", "20180928105546594702", "20180928105546599630", "20180928105546671594", "20180928105546809092", "20180928105932520845", "20180928105932560190", "20180928105932679563", "20180928105932712275", "20180928105932742401", "20180928105932866173");
-
-       for(String productNo : allProductNos){
-
-           if(!minProductNos.contains(productNo)){
-
-               System.out.println(productNo);
-           }
-       }
-    }
 
     @Test
     public void testSystemArrayCopy(){
@@ -545,54 +638,26 @@ public class UserLabelTest {
     public void testListToSet(){
 
         List<Integer> integers = new ArrayList<>();
-        integers.add(9); // index = 0;
+        integers.add(1);
         integers.add(2);
         integers.add(1);
-        integers.add(4); // index = 3;
-
-        integers.removeIf(a->{
-
-            if(a.equals(9)){
-                return true;
-            }
-            return false;
-        });
-        integers.sort(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o2.intValue() - o1.intValue();
-            }
-        });
+        integers.add(4);
 
         Set<Integer> integers1  = new HashSet<>();
         integers1.addAll(integers);
-
 
         System.out.println("integers:"+integers+","+integers.size());
         System.out.println("integers1:"+integers1+","+integers1.size());
     }
 
-    @Test
-    public void testSystemCurrentTime(){
-        System.out.println("1541148164486");
-        Date date = new Date(1541148164486l);
-        System.out.println(date);
-    }
 
-    int p;
     @Test
     public void testEquals(){
         Integer i=null;
         String a = "a";
         System.out.println(a.equals(i));
-        System.out.println(p);
     }
 
-    @Test
-    public void testA(){
-        int i = (1320000/10000) & (1280000/10000);
-        System.out.println();
-    }
 
     @Test
     public void testGeneric(){
@@ -626,13 +691,21 @@ public class UserLabelTest {
         users.add(user);
 
         Map<String,List<User>> mapGroupByProductNo = users.stream().collect(Collectors.groupingBy(a->a.getProductNo()));
-        List<User> empUsers = null;
+        List<User> empUsers;
         for(String productNo: mapGroupByProductNo.keySet()){
             empUsers =  mapGroupByProductNo.get(productNo);
             if(empUsers.size() >1){
                 System.out.println("productNo:"+productNo);
             }
         }
+    }
+
+    @Test
+    public void testAtomicInteger(){
+
+        AtomicInteger atomicInteger = new AtomicInteger(2);
+
+        System.out.println(atomicInteger.incrementAndGet());
     }
 
     @Test
