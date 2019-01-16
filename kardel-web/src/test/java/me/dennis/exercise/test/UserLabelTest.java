@@ -545,13 +545,28 @@ public class UserLabelTest {
     public void testListToSet(){
 
         List<Integer> integers = new ArrayList<>();
-        integers.add(1);
+        integers.add(9); // index = 0;
         integers.add(2);
         integers.add(1);
-        integers.add(4);
+        integers.add(4); // index = 3;
+
+        integers.removeIf(a->{
+
+            if(a.equals(9)){
+                return true;
+            }
+            return false;
+        });
+        integers.sort(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2.intValue() - o1.intValue();
+            }
+        });
 
         Set<Integer> integers1  = new HashSet<>();
         integers1.addAll(integers);
+
 
         System.out.println("integers:"+integers+","+integers.size());
         System.out.println("integers1:"+integers1+","+integers1.size());
@@ -564,11 +579,13 @@ public class UserLabelTest {
         System.out.println(date);
     }
 
+    int p;
     @Test
     public void testEquals(){
         Integer i=null;
         String a = "a";
         System.out.println(a.equals(i));
+        System.out.println(p);
     }
 
     @Test
@@ -609,12 +626,35 @@ public class UserLabelTest {
         users.add(user);
 
         Map<String,List<User>> mapGroupByProductNo = users.stream().collect(Collectors.groupingBy(a->a.getProductNo()));
-        List<User> empUsers;
+        List<User> empUsers = null;
         for(String productNo: mapGroupByProductNo.keySet()){
             empUsers =  mapGroupByProductNo.get(productNo);
             if(empUsers.size() >1){
                 System.out.println("productNo:"+productNo);
             }
         }
+    }
+
+    @Test
+    public void testRetain(){
+
+        List<Integer> listA = new ArrayList<Integer>();
+        listA.add(1);
+        listA.add(2);
+        listA.add(3);
+        listA.add(4);
+        listA.add(5);
+        listA.add(6);
+
+        List<Integer> listB = new ArrayList<Integer>();
+
+        listB.add(3);
+        listB.add(4);
+        listB.add(6);
+        listB.add(9);
+
+        listB.retainAll(listA);
+        System.out.println(listB);
+
     }
 }
