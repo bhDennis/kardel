@@ -22,17 +22,16 @@ public class CyclicBarrierTest {
 					
 			try {
 				array[id] = new Random().nextInt(100);
-				System.out.println("Component "+id+" generates"+array[id]);
+				System.out.println(id+"-Component generates-"+array[id]);
 
 				//在这里等待Barrier
-				System.out.println("Component "+id+" sleep");
+				System.out.println(id+"-Component sleep");
 				barrier.await();
-				System.out.println("Component "+id+" awaked");
 
 				//计算数据数组中的当前值和后续值
-				int result = array[id] + array[id+1];
-				System.out.println("Component "+id+" result:"+result);
-
+				System.out.println(id+"-Component awake");
+				int result = (array[id] + array[id+1]);
+				System.out.println(id+"-Component,result:"+result);
 
 			} catch (Exception e) {
 				
@@ -45,10 +44,10 @@ public class CyclicBarrierTest {
 		CyclicBarrier barrier = new CyclicBarrier(2,new Runnable(){
 			@Override
 			public void run() {
-			   System.out.println("testCyclicBarrier run");
+			   System.out.println("优先执行barrierAction");
 			   array[2] = array[0]+array[1];
 			}			
-		});
+		});	// barrier里的Runnable在CyclicBarrier的数目达到2时并且所有被CyclicBarrier.await()进入等待的线程被唤醒前执行
 		
 		new Thread(new ComponentThread(barrier,array,0)).start();
 		new Thread(new ComponentThread(barrier,array,1)).start();

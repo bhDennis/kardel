@@ -29,8 +29,8 @@ public class PrototypeTest {
         resumeDeepCopy.setWorkExperience(new Date(1991,01,11),"ahs");
 
         ResumeDeepCopy resumeDeepCopy1 = (ResumeDeepCopy)resumeDeepCopy.clone();
-        resumeDeepCopy1.setName("zjj2");
-        resumeDeepCopy1.setWorkExperience(new Date(1992,9,10),"eleme");
+//        resumeDeepCopy1.setName("zjj2");
+//        resumeDeepCopy1.setWorkExperience(new Date(1992,9,10),"eleme");
         System.out.println(resumeDeepCopy.toString());
         System.out.println(resumeDeepCopy1.toString());
 

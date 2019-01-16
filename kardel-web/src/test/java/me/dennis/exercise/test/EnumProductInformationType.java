@@ -5,8 +5,8 @@ package me.dennis.exercise.test;
  */
 public enum EnumProductInformationType {
 
-    无任务(0, "无任务"),
-    大件质检(1,"第五步");
+    NO_TASK(0, "无任务"),
+    BIG_PRODUCT(1,"第五步");
 
     EnumProductInformationType(Integer flow,String value){
         this.flow = flow;
@@ -32,7 +32,7 @@ public enum EnumProductInformationType {
         this.value = value;
     }
 
-    public static EnumProductInformationType getByFlow(int flow){
+    public static EnumProductInformationType getByFlow(Integer flow){
 
         for(EnumProductInformationType enumProductInformationType : EnumProductInformationType.values()){
 

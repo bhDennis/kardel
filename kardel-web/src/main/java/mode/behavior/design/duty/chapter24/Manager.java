@@ -9,7 +9,6 @@ public class Manager implements IHandler {
     public boolean handle(Request request) {
 
         if(request.getEnumRequestType().equals(EnumRequestType.ASK_FOR_LEAVE) && request.getDays() < 2){
-
             System.out.println("manager->agree");
             return true;
         }

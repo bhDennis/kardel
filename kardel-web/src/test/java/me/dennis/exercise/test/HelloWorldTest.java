@@ -20,6 +20,5 @@ public class HelloWorldTest {
         HelloWorld helloWorld = context.getBean(HelloWorld.class);
 
         helloWorld.hello();
-
     }
 }

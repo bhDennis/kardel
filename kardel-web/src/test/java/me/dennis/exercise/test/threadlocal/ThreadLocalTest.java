@@ -1,4 +1,4 @@
-package me.dennis.exercise.test;
+package me.dennis.exercise.test.threadlocal;
 
 /**
  * https://www.cnblogs.com/dolphin0520/p/3920407.html

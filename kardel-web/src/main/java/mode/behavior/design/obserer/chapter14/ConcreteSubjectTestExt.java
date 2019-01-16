@@ -12,8 +12,7 @@ public class ConcreteSubjectTestExt {
         AbstractObserverExt abstractObserverOne = new ConcreteObserverOneExt("老王",abstractSubject);
         AbstractObserverExt abstractObserverTwo = new ConcreteObserverTwoExt("老李",abstractSubject);
 
-
-        abstractSubject.notifySomething(ConcreteObserverOneExt.class.getMethods()[0] ,null);
-        abstractSubject.notifySomething(ConcreteObserverTwoExt.class.getMethods()[0],null);
+        abstractSubject.notifySomething(ConcreteObserverOneExt.class.getMethods()[0] ,"老王",abstractSubject);
+        abstractSubject.notifySomething(ConcreteObserverTwoExt.class.getMethods()[0],"老李",abstractSubject);
     }
 }

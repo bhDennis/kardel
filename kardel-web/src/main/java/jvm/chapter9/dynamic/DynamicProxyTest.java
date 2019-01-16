@@ -1,4 +1,4 @@
-package jvm.chapter9;
+package jvm.chapter9.dynamic;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -26,9 +26,9 @@ public class DynamicProxyTest {
 
     static class DynamicProxy implements InvocationHandler{
 
-        Object originalObj;
+        private Object originalObj;
 
-        Object bind(Object originalObj){
+        private Object bind(Object originalObj){
 
             this.originalObj = originalObj;
             System.out.println("bind,classLoader:"+originalObj.getClass().getClassLoader());

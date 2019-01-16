@@ -1,4 +1,4 @@
-package mode.behavior.design.obserer.chapter14;
+package mode.behavior.design.obserer.chapter14.simple;
 
 // 抽象观察者
 public abstract class AbstractObserver {

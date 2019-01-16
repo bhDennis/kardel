@@ -26,6 +26,7 @@
         <javax.ws.rs.api>2.0.1</javax.ws.rs.api>
         <aspectj.version>1.5.4</aspectj.version>
         <aspectjrt.version>1.5.4</aspectjrt.version>
+        <aspectjweaver.version>1.9.1</aspectjweaver.version>
     </properties>
 
     <build>

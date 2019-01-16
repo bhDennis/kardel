@@ -6,14 +6,12 @@ package mode.behavior.design.command.chapter23;
  */
 public class RoastchickenCommand extends AbstractCommand {
 
-
     public RoastchickenCommand(Barbecue barbecue){
         super(barbecue);
     }
 
     @Override
     protected void executeCommand() {
-
         barbecue.executeRoastchicken();
     }
 }

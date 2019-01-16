@@ -69,6 +69,12 @@
             <version>${junit.version}</version>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.aspectj</groupId>-->
+            <!--<artifactId>aspectjweaver</artifactId>-->
+            <!--<version>${aspectjweaver.version}</version>-->
+        <!--</dependency>-->
+
         <!-- 其他 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -112,6 +118,12 @@
             <groupId>me.dennis</groupId>
             <artifactId>kardel-base</artifactId>
             <version>${kardel.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId> 
+            <artifactId>fastjson</artifactId>
+             <version>1.1.42</version>
         </dependency>
 
     </dependencies>

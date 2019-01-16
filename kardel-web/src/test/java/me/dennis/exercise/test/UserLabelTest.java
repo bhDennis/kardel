@@ -1,6 +1,12 @@
 package me.dennis.exercise.test;
 
+import com.alibaba.fastjson.JSON;
 import me.aihuishou.spring.UserLabel;
+import me.dennis.generic.ClassB;
+import me.dennis.generic.ClassBB;
+import me.dennis.generic.InterfaceA;
+import me.dennis.generic.InterfaceB;
+import mode.creational.design.factory.abstrac.chapter15.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -10,6 +16,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.ResolvableType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,22 +33,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:beans.xml")
 public class UserLabelTest {
-
-    @Test
-    public void handleData(){
-
-        List<String> allDatas = Arrays.asList
-                ("SHTB000001", "SHTB000003", "SHTB000004", "SHTB000006", "SHTB000011", "SHTB000017", "SHTB000019", "SHTB000020", "SHTB000021", "SHTB000022", "SHTB000024", "SHTB000025", "SHTB000026", "SHTB000031", "SHTB000033", "SHTB000035", "SHTB000036", "SHTB000049", "SHTB000050", "SHTB000051", "SHTB000052", "SHTB000054", "SHTB000057", "SHTB000058", "SHTB000066", "SHTB000070", "SHTB000075", "SHTB000079", "SHTB000081", "SHTB000082", "SHTB000083", "SHTB000089", "SHTB000093", "SHTB000096", "SHTB000097", "SHTB000098", "SHYC000016", "SHYC000044", "SHSH000001", "SHSH000002", "SHXX000010", "SHXX000014", "SHXX000017", "SHXX000020", "SHLH010012", "SHLH010058", "SHLH060014", "SHLH060019", "SHLH060042", "SHXX000027", "SHXX000031", "SHXX000034", "SHSH000003", "SHSH000004", "SHSH000005", "SHSH000006", "SHSH000007", "SHSH000008", "SHSH000009", "SHSH000010", "SHCJ010002", "SHSH000012", "SHSH000013", "SHSH000014", "SHSH000011", "SHXX000041", "SHXX000049", "SHLH101001", "SHLH101002", "SHLH101003", "SHLH101006", "SHLH101007", "SHLH102002", "SHLH103002", "SHLH103007", "SHLH201002", "SHLH201003", "SHLH202005", "SHLH202008", "SHLH203004", "SHLH301002", "SHLH301004", "SHLH402005", "SHLH403007", "SHCK100002", "SHSH000016", "SHSH000017", "SHSH000018", "SHSH000019", "SHSH000020", "SHSH000022", "SHTB000160", "SHTB000163", "SHTB000195", "SHTB000196", "SHTB000198", "SHTB000199", "SHCK100003", "SHCK100004", "SHTB000241", "SHTB000242", "SHTB000244", "SHTB000245", "SHTB000250", "SHTB000249", "SHTB000248", "SHTB000246", "SHTB000239", "SHTB000238", "SHTB000237", "SHTB000236", "SHTB000230", "SHTB000229", "SHTB000226", "SHTB000223", "SHTB000222", "SHTB000220", "SHTB000219", "SHTB000218", "SHTB000217", "SHTB000215", "SHTB000214", "SHTB000213", "SHTB000211", "SHTB000210", "SHTB000208", "SHTB000207", "SHTB000203", "SHTB000204", "SHCK100006", "SHXX000090","zhanglj14", "zhanglj11", "SHZJ00001", "SHTB00502", "SHTB00503", "SHTB00505", "SHTB00605", "SHTDJC065", "SHTB00606", "zhutaotest_app");
-        List<String> lessDatas = Arrays.asList
-                ("SHCK100002", "SHCK100003", "SHCK100004", "SHLH010012", "SHLH010058", "SHLH060014", "SHLH060019", "SHLH060042", "SHLH101001", "SHLH101002", "SHLH101003", "SHLH101006", "SHLH101007", "SHLH102002", "SHLH103002", "SHLH103007", "SHLH201002", "SHLH202005", "SHLH203004", "SHLH301002", "SHLH301004", "SHLH402005", "SHLH403007", "SHSH000002", "SHSH000003", "SHSH000006", "SHSH000007", "SHSH000008", "SHSH000009", "SHSH000010", "SHSH000011", "SHSH000012", "SHSH000014", "SHSH000016", "SHSH000017", "SHSH000019", "SHSH000020", "SHSH000022", "SHTB000001", "SHTB000003", "SHTB000004", "SHTB000006", "SHTB000011", "SHTB000017", "SHTB000019", "SHTB000020", "SHTB000021", "SHTB000024", "SHTB000025", "SHTB000026", "SHTB000033", "SHTB000035", "SHTB000036", "SHTB000050", "SHTB000051", "SHTB000054", "SHTB000057", "SHTB000058", "SHTB000066", "SHTB000079", "SHTB000081", "SHTB000082", "SHTB000083", "SHTB000089", "SHTB000093", "SHTB000096", "SHTB000097", "SHTB000098", "SHTB000163", "SHTB000195", "SHTB000196", "SHTB000199", "SHTB000203", "SHTB000204", "SHTB000207", "SHTB000208", "SHTB000211", "SHTB000213", "SHTB000214", "SHTB000215", "SHTB000217", "SHTB000218", "SHTB000219", "SHTB000220", "SHTB000222", "SHTB000223", "SHTB000226", "SHTB000229", "SHTB000230", "SHTB000236", "SHTB000237", "SHTB000238", "SHTB000239", "SHTB000241", "SHTB000242", "SHTB000244", "SHTB000245", "SHTB000246", "SHTB000248", "SHTB000249", "SHTB000250", "SHXX000010", "SHXX000014", "SHXX000017", "SHXX000020", "SHXX000027", "SHXX000031", "SHXX000034", "SHXX000041", "SHXX000049", "SHXX000090", "SHYC000016", "SHYC000044","SHTB00502", "SHTB00503", "SHTB00505", "SHTB00606", "SHTDJC065", "SHZJ00001", "zhanglj11", "zhanglj14", "zhutaotest_app");
-        System.out.println("lessDatas:"+lessDatas.size()+",allDatas:"+allDatas.size());
-        for(String s : allDatas){
-
-            if(!lessDatas.contains(s)){
-                System.out.println(s);
-            }
-        }
-    }
 
     @Test
     public void testList(){
@@ -342,23 +333,6 @@ public class UserLabelTest {
         });
     }
 
-    @Test
-    public void testBytes(){
-        String str = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALM47PX/YfmlKSDUmVb/t5Ud2MGr\n" +
-                "0cHeXhB8uWOuJLcqU0LmtI/ZhR6y32P/Kbge32FVQEe6wO6rd8t77PpyOKQ45zOkpfxKH7rX85v6\n" +
-                "Y7bme0lqkY/LbofhchaDuFenvDEmF3Q/k/mGiKtMpW1OoFnYx829rnQ+rZE3mr185e4xAgMBAAEC\n" +
-                "gYA5qoRcNrrwl5rfLGjWXFtWiI746e8JASKlDWydTSgVI3I84XyRmHzDvuwwAacLzisz5zlSmx1+\n" +
-                "7f8SoyJCB0R/z1Vr9F8we1hfEtkqjuvpKbUNZbHrPDaG1AAfjZFsH1Fh/hQ5Cs6E5NSCdzNMr+v/\n" +
-                "oFA9nVnXvLlnzQntMa3hHQJBAPgkCkB6Y32jlU0jIfP2K6//jwZ9m5sRg31JGUA+uMV/UGM2ksr8\n" +
-                "Z1IIImWSq47eeduaklqN7R6y/1+PPqKLfM8CQQC45hXicEaRG+49tYt4MBbUXR8VrD27h3VvKOKu\n" +
-                "Kc1+OIpH9/hHU6BLrDxf29kg27oVYsVjvZvK8n13oYJIAKT/AkByKOqKhYQWPlcm+N3bBktNGk7r\n" +
-                "1ofrTKBo2GOEmhaZzhvmuSnJt1u1csaYYmUJQrNfY/qnLJqFwCYbCaTwVSojAkAkJ6GZ4Jh74XlJ\n" +
-                "iclW3BhquDbO1xpPJCK7dMQ2iCgNiWLIxd0/nUOX6Hr5x5SCj1Sov+KXKUlgeuA711IRYEbjAkEA\n" +
-                "iRYDamSh72gSsKDASF5FzBGX6YyExLJHs6Mv78t3y3EsPSGRDpqOAL/mdpIpM9WWe0V1Kitpy+yC\n" +
-                "9gflKE2e+A==";
-        System.out.println(str.getBytes().length);
-    }
-
 
     public HashMap<Integer,List<String>> myMap;
 
@@ -529,21 +503,209 @@ public class UserLabelTest {
     @Test
     public void testWJBK() throws InterruptedException {
 
-            WeakReference r = new WeakReference(new String("I’m here"));
+        WeakReference r = new WeakReference(new String("I’m here"));
 
-            WeakReference sr = new WeakReference("I’m here");//sr 直接引用的常量池中的字面量 "I’m here"，而常量池对这个字面量本身也有引用，所以无法回收
+        WeakReference sr = new WeakReference("I’m here");//sr 直接引用的常量池中的字面量 "I’m here"，而常量池对这个字面量本身也有引用，所以无法回收
 
-            System.gc();
-            Thread.sleep(1000);
+        System.gc();
+        Thread.sleep(1000);
 
-            // only r.get() becomes null
-            System.out.println("after gc:r =" + r.get() + ",static=" + sr.get());
+        // only r.get() becomes null
+        System.out.println("after gc:r =" + r.get() + ",static=" + sr.get());
+    }
+
+    /**
+     * 枚举类转成json时调用的是Enum.name()方法，而不是其code、value值
+     */
+    @Test
+    public void testGetInformationType() {
+
+        EnumProductInformationType result = EnumProductInformationType.getByFlow(1);
+        System.out.print(JSON.toJSON(result));
     }
 
     @Test
-    public void testGetInformationType(){
+    public void testLinkedHashMap(){
 
-        EnumProductInformationType result = EnumProductInformationType.getByFlow(1);
-        System.out.print(result);
+        LinkedHashMap<String, String> accessOrderedMap = new LinkedHashMap<String, String>(16, 0.75F, true){
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<String, String> eldest) { // 实现自定义删除策略，否则行为就和普遍 Map 没有区别
+                return size() > 3;
+            }
+        };
+        accessOrderedMap.put("Project1", "Valhalla");
+        accessOrderedMap.put("Project2", "Panama");
+        accessOrderedMap.put("Project3", "Loom");
+        accessOrderedMap.forEach( (k,v) -> {
+            System.out.println(k +":" + v);
+        });
+        // 模拟访问
+        accessOrderedMap.get("Project2");
+        accessOrderedMap.get("Project2");
+        accessOrderedMap.get("Project3");
+        System.out.println("Iterate over should be not affected:");
+        accessOrderedMap.forEach( (k,v) -> {
+            System.out.println(k +":" + v);
+        });
+        // 触发删除
+        accessOrderedMap.put("Project4", "Mission Control");
+        System.out.println("Oldest entry should be removed:");
+        accessOrderedMap.forEach( (k,v) -> {// 遍历顺序不变
+            System.out.println(k +":" + v);
+        });
+    }
+
+
+    @Test
+    public void testToSet(){
+
+//        List<User> s = new ArrayList<>();
+//
+//        User user = new User("张三",1);
+//        User user1 = new User("张三1",1);
+//        User user2 = new User("张三2",2);
+//        User user3 = new User("张三3",3);
+//        User user4 = new User("张三4",3);
+//        s.add(user);
+//        s.add(user1);
+//        s.add(user2);
+//        s.add(user3);
+//        s.add(user4);
+//
+//        System.out.println(s);
+//
+//        Set<Integer> ages = s.stream().map(a->a.getAge()).collect(Collectors.toSet());
+//        System.out.println(ages);
+
+          System.out.println("1".equals(""));
+          System.out.println(null instanceof String);
+    }
+
+    @Test
+    public void testLoopFinal(){
+
+        List<String> agentNos = Arrays.asList("A","B","C","D");
+        for(String agentNo : agentNos){
+            final String a = agentNo+"hzx";
+            System.out.println(a);
+        }
+    }
+
+    @Test
+    public void testXOR(){
+
+        Integer isXOR1 = 1^4864;
+        Integer isXOR2 = 2^4864;
+        Integer isXOR3 = 4^4864;
+        Integer isXOR4 = 8^4864;
+        Integer isXOR5 = 16^4864;
+        Integer isXOR6 = 32^4864;
+        Integer isXOR7 = 64^4864;
+        Integer isXOR8 = 128^4864;
+        Integer isXOR9 = 256^4864;
+        Integer isXOR10 = 512^4864;
+        Integer isXOR11 = 1024^4864;
+        Integer isXOR12 = 2048^4864;
+        Integer isXOR13 = 4096^4864;
+
+        System.out.println("isXOR1="+isXOR1);
+        System.out.println("isXOR2="+isXOR2);
+        System.out.println("isXOR3="+isXOR3);
+        System.out.println("isXOR4="+isXOR4);
+        System.out.println("isXOR5="+isXOR5);
+        System.out.println("isXOR6="+isXOR6);
+        System.out.println("isXOR7="+isXOR7);
+        System.out.println("isXOR8="+isXOR8);
+        System.out.println("isXOR9="+isXOR9);
+        System.out.println("isXOR10="+isXOR10);
+        System.out.println("isXOR11="+isXOR11);
+        System.out.println("isXOR12="+isXOR12);
+        System.out.println("isXOR13="+isXOR13);
+
+        System.out.println("isXOR14="+(256|512|4096));
+    }
+
+
+    @Test
+    public void testSystemArrayCopy(){
+
+        User user = new User("zhangsan",11,"1");
+        User user1 = new User("lisi",22,"2");
+        User[] users = new User[]{user,user1};
+        System.out.println(users[0].hashCode());
+    }
+
+    @Test
+    public void testListToSet(){
+
+        List<Integer> integers = new ArrayList<>();
+        integers.add(1);
+        integers.add(2);
+        integers.add(1);
+        integers.add(4);
+
+        Set<Integer> integers1  = new HashSet<>();
+        integers1.addAll(integers);
+
+        System.out.println("integers:"+integers+","+integers.size());
+        System.out.println("integers1:"+integers1+","+integers1.size());
+    }
+
+
+    @Test
+    public void testEquals(){
+        Integer i=null;
+        String a = "a";
+        System.out.println(a.equals(i));
+    }
+
+
+    @Test
+    public void testGeneric(){
+        Class<?> argumentClass = GenericTypeResolver.resolveTypeArgument(ClassB.class, InterfaceB.class);
+        System.out.println(argumentClass); // 解析ClassB里的泛型参数
+        System.out.println("父类 --> 子类:"+InterfaceA.class.isAssignableFrom(argumentClass)); //
+        System.out.println("父类 --> 子类："+ClassB.class.isInstance(new ClassBB()));
+        System.out.println("子类 --> 父类："+ClassBB.class.isInstance(new ClassB()));
+    }
+
+    @Test
+    public void testGroupBy(){
+
+        List<User> users = new ArrayList<>();
+        User user = User.builder()
+                .productNo("20181126085821542217")
+                .name("hzx")
+                .build();
+        users.add(user);
+
+        user =  User.builder()
+                .productNo("20181126085821542217")
+                .name("hxl")
+                .build();
+        users.add(user);
+
+        user =  User.builder()
+                .productNo("20181126085821542218")
+                .name("hxl")
+                .build();
+        users.add(user);
+
+        Map<String,List<User>> mapGroupByProductNo = users.stream().collect(Collectors.groupingBy(a->a.getProductNo()));
+        List<User> empUsers;
+        for(String productNo: mapGroupByProductNo.keySet()){
+            empUsers =  mapGroupByProductNo.get(productNo);
+            if(empUsers.size() >1){
+                System.out.println("productNo:"+productNo);
+            }
+        }
+    }
+
+    @Test
+    public void testAtomicInteger(){
+
+        AtomicInteger atomicInteger = new AtomicInteger(2);
+
+        System.out.println(atomicInteger.incrementAndGet());
     }
 }
