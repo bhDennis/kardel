@@ -17,6 +17,10 @@ public class NameCheckProcessor extends AbstractProcessor{
 
     private NameChecker nameChecker;
 
+    /**
+     * 初始化名称检查插件
+     * @param processingEnvironment
+     */
     public void init(ProcessingEnvironment processingEnvironment){  // processingEnvironment代表注解处理器框架提供的一个上下文环境，用于创建新的代码、向编译器输出信息、获取其他工具类
        super.init(processingEnvironment);
        nameChecker = new NameChecker(processingEnvironment);
@@ -24,6 +28,7 @@ public class NameCheckProcessor extends AbstractProcessor{
 
     /**
      * 对输入的语法树的各个节点进行名称检查
+     *
      * @param annotations  从该参数可以获取到注解处理器所要处理的注解集合
      * @param roundEnv    从该参数可以访问到当前这个Round中的语法树节点
      * @return

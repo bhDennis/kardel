@@ -5,5 +5,5 @@ package mode.structure.design.flyweight.chapter26;
  */
 public abstract class Website {
 
-    abstract void use(User user);
+    abstract void use(UserForFlyWeight userForFlyWeight);
 }

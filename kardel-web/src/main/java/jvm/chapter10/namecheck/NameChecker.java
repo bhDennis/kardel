@@ -37,7 +37,6 @@ public class NameChecker {
      * @param element
      */
     public void checkNames(Element element){
-
         nameCheckerScanner.scan(element);
     }
 

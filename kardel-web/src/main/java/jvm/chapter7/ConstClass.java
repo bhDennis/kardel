@@ -1,4 +1,4 @@
-package jvm.classloading;
+package jvm.chapter7;
 
 /**
  * p.175
@@ -10,5 +10,5 @@ public class ConstClass {
     static {
         System.out.println("ConstClass init!");
     }
-    public static final String HELLOWORLD = "hello world";
+    public static final String HELLO_WORLD = "hello world";
 }

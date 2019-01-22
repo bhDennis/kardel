@@ -16,13 +16,11 @@ public class CompositeCompany extends Company {
 
     @Override
     void add(Company company) {
-
         companyList.add(company);
     }
 
     @Override
     void remove(Company company) {
-
         companyList.remove(company);
     }
 

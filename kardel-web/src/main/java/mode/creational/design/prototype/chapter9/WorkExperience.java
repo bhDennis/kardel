@@ -24,7 +24,6 @@ public class WorkExperience implements Cloneable{
         this.company = company;
     }
 
-    @Override
     public String toString() {
         return "WorkExperience{" +
                 "timeArea=" + timeArea +

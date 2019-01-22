@@ -5,7 +5,7 @@ import me.dennis.generic.ClassB;
 import me.dennis.generic.ClassBB;
 import me.dennis.generic.InterfaceA;
 import me.dennis.generic.InterfaceB;
-import mode.creational.design.factory.abstrac.chapter15.model.User;
+import mode.creational.design.factory.abstrac.chapter15.model.UserForFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:beans.xml")
-public class UserLabelTest {
+public class UserForFactoryLabelTest {
 
     @Test
     public void testList(){
@@ -117,7 +117,7 @@ public class UserLabelTest {
 //
 //          System.out.println(2 | 0);
 
-        List<UserLabel> a = new ArrayList<UserLabel>();
+        List<UserLabel> a = new ArrayList<>();
         Map<String,UserLabel> b = a.stream().collect(Collectors.toMap(t->t.getId(),t->t));
         System.out.print("b:"+b.get("1"));
 
@@ -139,7 +139,7 @@ public class UserLabelTest {
 //
 //        System.out.println("userLabelClass:"+UserLabel.class);
 //
-//        System.out.println("userLabel:"+new UserLabelTest());
+//        System.out.println("userLabel:"+new UserForFactoryLabelTest());
 
 //        Calendar calendar = Calendar.getInstance();
 //
@@ -558,13 +558,13 @@ public class UserLabelTest {
     @Test
     public void testToSet(){
 
-//        List<User> s = new ArrayList<>();
+//        List<UserForFactory> s = new ArrayList<>();
 //
-//        User user = new User("张三",1);
-//        User user1 = new User("张三1",1);
-//        User user2 = new User("张三2",2);
-//        User user3 = new User("张三3",3);
-//        User user4 = new User("张三4",3);
+//        UserForFactory user = new UserForFactory("张三",1);
+//        UserForFactory user1 = new UserForFactory("张三1",1);
+//        UserForFactory user2 = new UserForFactory("张三2",2);
+//        UserForFactory user3 = new UserForFactory("张三3",3);
+//        UserForFactory user4 = new UserForFactory("张三4",3);
 //        s.add(user);
 //        s.add(user1);
 //        s.add(user2);
@@ -628,10 +628,10 @@ public class UserLabelTest {
     @Test
     public void testSystemArrayCopy(){
 
-        User user = new User("zhangsan",11,"1");
-        User user1 = new User("lisi",22,"2");
-        User[] users = new User[]{user,user1};
-        System.out.println(users[0].hashCode());
+        UserForFactory userForFactory = new UserForFactory("zhangsan",11,"1");
+        UserForFactory userForFactory1 = new UserForFactory("lisi",22,"2");
+        UserForFactory[] userForFactories = new UserForFactory[]{userForFactory, userForFactory1};
+        System.out.println(userForFactories[0].hashCode());
     }
 
     @Test
@@ -671,30 +671,30 @@ public class UserLabelTest {
     @Test
     public void testGroupBy(){
 
-        List<User> users = new ArrayList<>();
-        User user = User.builder()
+        List<UserForFactory> userForFactories = new ArrayList<>();
+        UserForFactory userForFactory = UserForFactory.builder()
                 .productNo("20181126085821542217")
                 .name("hzx")
                 .build();
-        users.add(user);
+        userForFactories.add(userForFactory);
 
-        user =  User.builder()
+        userForFactory =  UserForFactory.builder()
                 .productNo("20181126085821542217")
                 .name("hxl")
                 .build();
-        users.add(user);
+        userForFactories.add(userForFactory);
 
-        user =  User.builder()
+        userForFactory =  UserForFactory.builder()
                 .productNo("20181126085821542218")
                 .name("hxl")
                 .build();
-        users.add(user);
+        userForFactories.add(userForFactory);
 
-        Map<String,List<User>> mapGroupByProductNo = users.stream().collect(Collectors.groupingBy(a->a.getProductNo()));
-        List<User> empUsers;
+        Map<String,List<UserForFactory>> mapGroupByProductNo = userForFactories.stream().collect(Collectors.groupingBy(a->a.getProductNo()));
+        List<UserForFactory> empUserForFactories;
         for(String productNo: mapGroupByProductNo.keySet()){
-            empUsers =  mapGroupByProductNo.get(productNo);
-            if(empUsers.size() >1){
+            empUserForFactories =  mapGroupByProductNo.get(productNo);
+            if(empUserForFactories.size() >1){
                 System.out.println("productNo:"+productNo);
             }
         }

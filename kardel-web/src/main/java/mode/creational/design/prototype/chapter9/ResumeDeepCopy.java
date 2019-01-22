@@ -45,7 +45,6 @@ public class ResumeDeepCopy implements Cloneable{
         this.workExperience.setCompany(company);
     }
 
-    @Override
     public String toString() {
         return "ResumeDeepCopy{" +
                 "name='" + name + '\'' +
@@ -54,7 +53,6 @@ public class ResumeDeepCopy implements Cloneable{
                 '}';
     }
 
-    @Override
     protected Object clone() throws CloneNotSupportedException {
 
         ResumeDeepCopy resumeDeepCopy = new ResumeDeepCopy(this.workExperience); // 能实现深拷贝的关键代码

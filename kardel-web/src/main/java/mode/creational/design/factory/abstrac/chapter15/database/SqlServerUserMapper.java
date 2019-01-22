@@ -1,7 +1,7 @@
 package mode.creational.design.factory.abstrac.chapter15.database;
 
 import mode.creational.design.factory.abstrac.chapter15.mapper.IUserMapper;
-import mode.creational.design.factory.abstrac.chapter15.model.User;
+import mode.creational.design.factory.abstrac.chapter15.model.UserForFactory;
 
 /**
  * Created by dennis on 2018/3/6.
@@ -9,13 +9,13 @@ import mode.creational.design.factory.abstrac.chapter15.model.User;
 public class SqlServerUserMapper implements IUserMapper {
 
     @Override
-    public void insert(User user) {
+    public void insert(UserForFactory userForFactory) {
 
-        System.out.println("sql server insert user");
+        System.out.println("sql server insert userForFactory");
     }
 
     @Override
-    public User getById(Integer id) {
+    public UserForFactory getById(Integer id) {
         return null;
     }
 }

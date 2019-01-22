@@ -16,7 +16,7 @@ public class ConcreteWebsite extends Website{
     }
 
     @Override
-    void use(User user) {
-        System.out.println("网站分类:"+websiteName+"->用户："+user.getName());
+    void use(UserForFlyWeight userForFlyWeight) {
+        System.out.println("网站分类:"+websiteName+"->用户："+ userForFlyWeight.getName());
     }
 }

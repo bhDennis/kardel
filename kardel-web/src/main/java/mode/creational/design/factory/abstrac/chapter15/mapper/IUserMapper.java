@@ -1,13 +1,13 @@
 package mode.creational.design.factory.abstrac.chapter15.mapper;
 
-import mode.creational.design.factory.abstrac.chapter15.model.User;
+import mode.creational.design.factory.abstrac.chapter15.model.UserForFactory;
 
 /**
  * Created by dennis on 2018/3/5.
  */
 public interface IUserMapper {
 
-    void insert(User user);
+    void insert(UserForFactory userForFactory);
 
-    User getById(Integer id);
+    UserForFactory getById(Integer id);
 }

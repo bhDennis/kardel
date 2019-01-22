@@ -85,5 +85,4 @@ public class JavaMethodAreaOOM {
             return obj;
         }
     }
-
 }

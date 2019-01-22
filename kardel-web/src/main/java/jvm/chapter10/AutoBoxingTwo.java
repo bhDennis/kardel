@@ -25,6 +25,6 @@ public class AutoBoxingTwo {
         System.out.println(c == (a+b));       // false ---> true      说明进行了拆箱
         System.out.println(c.equals(a+b));   // true   ---> true      查看Integer类的equals方法可知进行了拆箱
         System.out.println(g == (a+b));     // false   ---> true      说明进行了拆箱，且进行了类型转换
-        System.out.println(g.equals(a+b)); // true ---> false         a+b后不是Long类型，具体原因可查看Long类的equals方法
+        System.out.println(g.equals(a+b)); //  true ---> false         a+b后不是Long类型，具体原因可查看Long类的equals方法
     }
 }

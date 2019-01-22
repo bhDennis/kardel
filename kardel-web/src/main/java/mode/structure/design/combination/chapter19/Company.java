@@ -1,6 +1,7 @@
 package mode.structure.design.combination.chapter19;
 
 /**
+ *
  * Created by dennis on 2018/3/13.
  */
 public abstract class Company {

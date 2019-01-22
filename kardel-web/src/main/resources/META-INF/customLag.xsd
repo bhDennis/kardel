@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
         elementFormDefault="qualified"
-        targetNamespace="http://www.lexueba.com/schema/user"
-        xmlns:tns="http://www.lexueba.com/schema/user">
+        targetNamespace="http://www.lexueba.com/schema/userForFactory"
+        xmlns:tns="http://www.lexueba.com/schema/userForFactory">
 
-    <element name="user">
+    <element name="userForFactory">
         <complexType >
             <attribute name="id"        type="string"/>
             <attribute name="userName"  type="string" />

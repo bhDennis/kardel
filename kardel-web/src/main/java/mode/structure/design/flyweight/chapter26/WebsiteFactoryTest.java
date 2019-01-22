@@ -10,13 +10,13 @@ public class WebsiteFactoryTest {
         WebsiteFactory websiteFactory = new WebsiteFactory();
 
         Website websiteX = websiteFactory.getWebsite("产品展示");
-        websiteX.use(new User("小A"));
+        websiteX.use(new UserForFlyWeight("小A"));
 
         Website websiteY = websiteFactory.getWebsite("产品展示");
-        websiteY.use(new User("小B"));
+        websiteY.use(new UserForFlyWeight("小B"));
 
         Website websiteC = websiteFactory.getWebsite("微博");
-        websiteC.use(new User("小C"));
+        websiteC.use(new UserForFlyWeight("小C"));
 
         int count = websiteFactory.getWebsiteCount();
         System.out.println(count);

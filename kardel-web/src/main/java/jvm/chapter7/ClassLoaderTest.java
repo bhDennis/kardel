@@ -26,7 +26,6 @@ public class ClassLoaderTest {
                     }
                     byte[] b = new byte[is.available()];
                     is.read(b);
-
                     return defineClass(name,b,0,b.length);
                 } catch (IOException e) {
                    throw new ClassNotFoundException(name);
@@ -34,12 +33,21 @@ public class ClassLoaderTest {
             }
         };
 
-        classLoader.loadClass("java.lang.Integer"); // p.193 底部
+//        classLoader.loadClass("java.lang.Integer"); // p.193 底部
 
         Object object = classLoader.loadClass("jvm.chapter7.ClassLoaderTest").newInstance();
 
         System.out.println(object.getClass());
 
-        System.out.println(object instanceof  jvm.chapter7.ClassLoaderTest);
+        /**
+         * 结果：返回false
+         *
+         * 原因：虚拟机中存在两个ClassLoaderTest类，一个是由系统应用程序类加载器加载的，
+         * 一个是由自定义类加载器加载的
+         *
+         */
+        System.out.println(object instanceof jvm.chapter7.ClassLoaderTest);
+
+        System.out.println(ClassLoaderTest.class.getClassLoader());
     }
 }

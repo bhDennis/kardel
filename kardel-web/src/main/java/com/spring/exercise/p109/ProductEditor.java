@@ -7,7 +7,7 @@ import java.beans.PropertyEditorSupport;
 /**
  * Created by dennis on 2018/12/17.
  */
-public class ProductEditor  extends PropertyEditorSupport{
+public class ProductEditor extends PropertyEditorSupport{
 
     // 将属性转换为字符串值
     public String getAsText(){
